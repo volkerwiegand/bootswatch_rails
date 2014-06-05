@@ -1,0 +1,30 @@
+<%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
+  <%%= f.error_notification %>
+
+<%- attributes.each do |attribute| -%>
+  <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+<%- if attribute.name.include?("picture") -%>
+  <%%= f.input :<%= attribute.name %>_cache, as: :hidden %>
+  <%%- if @<%= singular_table_name %>.<%= attribute.name %>? -%>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <%%= image_tag(@<%= singular_table_name %>.<%= attribute.name %>_url(:thumb)) %>
+        &nbsp;&nbsp;&nbsp;
+        <label for="<%= singular_table_name %>_remove_<%= attribute.name %>">
+          <%%= f.check_box :remove_<%= attribute.name %> %>
+          <%%= t('headers.destroy', name: t('activerecord.attributes.<%= singular_table_name %>.<%= attribute.name %>')) %>
+        </label>
+      </div>
+    </div>
+  <%%- end -%>
+<%- end -%>
+<%- end -%>
+
+  <%%= f.button :submit, class: 'btn btn-primary' %>
+  <%%- if @<%= singular_table_name %>.new_record? -%>
+    <%%= link_to t('actions.back.index'), <%= index_helper %>_path, class: 'btn btn-default' %>
+  <%%- else -%>
+    <%%= link_to t('actions.back.show'), @<%= singular_table_name %>, class: 'btn btn-default' %>
+    <%%= link_to t('actions.back.index'), <%= index_helper %>_path, class: 'btn btn-default' %>
+  <%%- end -%>
+<%% end %>

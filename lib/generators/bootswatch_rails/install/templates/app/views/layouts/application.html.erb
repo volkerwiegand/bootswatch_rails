@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+  <%= render 'layouts/head' %>
+
+  <body>
+    <%= render 'layouts/topnav' %>
+    
+    <div class="container" id="main-content">
+<%- if user_signed_in? -%>
+      <div class="row">
+        <div class="col-md-9">
+          <%= render 'layouts/flash' %>
+          <%= yield %>
+        </div>
+        <div class="well col-md-3">
+          <%= render 'layouts/sidebar' %>
+        </div>
+      </div>
+<%- else -%>
+      <%= render 'layouts/flash' %>
+      <%= yield %>
+<%- end -%>
+      
+      <%= render 'layouts/footer' %>
+    </div>
+  </body>
+</html>

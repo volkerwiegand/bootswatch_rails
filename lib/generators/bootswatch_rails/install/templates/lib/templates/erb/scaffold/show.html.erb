@@ -1,0 +1,31 @@
+<h2><%%= t('headers.show', name: t('activerecord.models.<%= singular_table_name %>.one')) %></h2>
+
+<table class="table table-striped table-hover">
+  <tbody>
+<% attributes.each do |attribute| -%>
+    <tr>
+      <td>
+        <%%= t('activerecord.attributes.<%= singular_table_name %>.<%= attribute.name %>') %>
+      </td>
+      <td>
+  <%- if attribute.name.include?("picture") -%>
+        <p>
+          <%%= link_to "Anzeigen in Originalgröße", '#' %>
+        </p>
+        <%%= image_tag(@<%= singular_table_name %>.<%= attribute.name %>_url(:display)) %>
+  <%- elsif attribute.type == :boolean -%>
+        <%%= @<%= singular_table_name %>.<%= attribute.name %> ? t('simple_form.yes') : t('simple_form.no') %>
+  <%- elsif attribute.type == :belongs_to -%>
+        <%%= @<%= singular_table_name %>.<%= attribute.name %>.name %>
+  <%- else -%>
+        <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+  <%- end -%>
+      </td>
+    </tr>
+<% end -%>
+  </tbody>
+</table>
+
+<%%= link_to t('actions.edit'), [:edit, @<%= singular_table_name %>], class: 'btn btn-primary' %>
+<%%= link_to t('actions.back.index'), <%= index_helper %>_path, class: 'btn btn-default' %>
+<%%= link_to t('actions.destroy'), @<%= singular_table_name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger' %>
