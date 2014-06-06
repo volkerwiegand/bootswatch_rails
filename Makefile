@@ -7,6 +7,7 @@ all:
 	./generate.sh
 	git add lib
 	git add vendor
+	vim lib/bootswatch_rails/version.rb
 	git commit -a
 	rake release
 
