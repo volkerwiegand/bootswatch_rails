@@ -23,8 +23,14 @@ module BootswatchRails
           end
           lines = [
             "",
+            "  def default_theme",
+            "    BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s",
+            "  end",
+            "  helper_method :default_theme",
+            "",
             "  def current_theme",
-            "    @current_theme ||= current_user ? current_user.theme : '#{BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s}'",
+            "    @current_theme = current_user if user_signed_in?",
+            "    @current_theme ||= default_theme",
             "  end",
             "  helper_method :current_theme",
             ""
