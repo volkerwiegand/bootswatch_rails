@@ -29,7 +29,7 @@ module BootswatchRails
             "  helper_method :default_theme",
             "",
             "  def current_theme",
-            "    @current_theme = current_user if user_signed_in?",
+            "    @current_theme = current_user.theme if user_signed_in?",
             "    @current_theme ||= default_theme",
             "  end",
             "  helper_method :current_theme",
