@@ -1,0 +1,64 @@
+de:
+  sorcery:
+    log_in: "Login"
+    log_out: "Logout"
+    sign_up: "Benutzerkonto anlegen"
+    header: "Anmelden am System"
+    submit: "Login"
+<%- if reset_password? -%>
+    reset:
+      forgot: "Kennwort vergessen?"
+      header: "Kennwort anfordern"
+      send: "Anleitung senden"
+      back: "Zurück zum Login"
+      delivered: "Eine Anleitung wurde an Ihre E-Mail Adresse gesendet."
+      missing: "Keine E-Mail Adresse angegeben."
+      choose: "Eingabe neues Kennwort"
+      change: "Kennwort ändern"
+      success: "Das Kennwort wurde aktualisiert."
+      failed: "Das Kennwort konnte nicht aktualisiert werden."
+<%- end -%>
+    new_password: "Neues Kennwort"
+    failed: "E-Mail oder Kennwort ungültig"
+    success: "Willkommen und frohes Schaffen!"
+    goodbye: "Tschüss und bis bald."
+
+  <%= name %>_mailer:
+    reset_password_email:
+      subject: "Kennwort für #{name} zurücksetzen"
+
+  enums:
+    <%= name %>:
+      status:
+        guest: "Gast"
+        member: "Mitglied"
+        admin: "Admin"
+        sysadm: "System-Admin"
+
+  activerecord:
+    models:
+      <%= name %>:
+        one: "Benutzer"
+        other: "Benutzer"
+    attributes:
+      <%= name %>:
+        email: "E-Mail"
+        name: "Name"
+        active: "Aktiv"
+        status: "Status"
+        theme: "Oberfläche"
+        password: "Kennwort"
+        password_confirmation: "Kennwort wiederholen"
+<%- if remember_me? -%>
+        remember_me: "Angemeldet bleiben"
+<%- end -%>
+<%- if activity_logging? -%>
+        last_login_at: "Letzte Anmeldung"
+        last_logout_at: "Letzte Abmeldung"
+        last_activity_at: "Letzte Aktivität"
+        last_login_from_ip_address: "Letzte IP-Adresse"
+<%- end -%>
+<%- if brute_force_protection? -%>
+        failed_logins_count: "Fehlversuche Anmeldung"
+        lock_expires_at: "Gesperrt bis"
+<%- end -%>

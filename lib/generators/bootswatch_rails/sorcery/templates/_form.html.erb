@@ -1,0 +1,19 @@
+<%%= simple_form_for(@<%= name %>) do |f| %>
+  <%%= f.error_notification %>
+
+  <%%= f.input :email %>
+  <%%= f.input :name %>
+  <%%= f.input :active %>
+  <%%= f.input :password %>
+  <%%= f.input :password_confirmation %>
+  <%%= f.input :status %>
+  <%%= f.input :theme %>
+
+  <%%= f.button :submit, class: 'btn btn-primary' %>
+  <%%- if @<%= name %>.new_record? -%>
+    <%%= link_to t('actions.back.index'), <%= table_name %>_path, class: 'btn btn-default' %>
+  <%%- else -%>
+    <%%= link_to t('actions.back.show'), @<%= name %>, class: 'btn btn-default' %>
+    <%%= link_to t('actions.back.index'), <%= table_name %>_path, class: 'btn btn-default' %>
+  <%%- end -%>
+<%% end %>

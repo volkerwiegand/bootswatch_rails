@@ -10,7 +10,7 @@
       <td>
   <%- if attribute.name.include?("picture") -%>
         <p>
-          <%%= link_to "Anzeigen in Originalgröße", '#' %>
+          <%%= link_to "TODO: Anzeigen in Originalgröße", '#' %>
         </p>
         <%%= image_tag(@<%= singular_table_name %>.<%= attribute.name %>_url(:display)) %>
   <%- elsif attribute.type == :boolean -%>
