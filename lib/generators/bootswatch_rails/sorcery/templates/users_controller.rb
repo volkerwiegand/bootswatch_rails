@@ -1,4 +1,5 @@
 class <%= controller_name.camelize %> < ApplicationController
+  skip_before_filter :require_login, only: [:log_in, :access, :password, :reset, :change, :refresh]
   before_action :set_<%= name %>, only: [:show, :edit, :update, :destroy]
 
   # GET /<%= table_name %>

@@ -93,6 +93,13 @@ module BootswatchRails
         end
       end
 
+      def update_application_controller
+        file = "app/controllers/application_controller.rb"
+        inject_into_class file, "ApplicationController" do
+          "  before_filter :require_login\n\n"
+        end
+      end
+
       protected
 
       def user_activation?
