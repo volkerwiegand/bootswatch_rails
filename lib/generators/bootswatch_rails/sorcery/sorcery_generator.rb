@@ -78,6 +78,8 @@ module BootswatchRails
         ] if reset_password?
         lines << [
           "  end",
+          "get '/login'  => '#{table_name}#log_in',  as: :login",
+          "get '/logout' => '#{table_name}#log_out', as: :logout",
           ""
         ]
         route lines.join("\n")
@@ -95,9 +97,16 @@ module BootswatchRails
 
       def update_application_controller
         file = "app/controllers/application_controller.rb"
-        inject_into_class file, "ApplicationController" do
-          "  before_filter :require_login\n\n"
-        end
+        inject_into_class file, "ApplicationController", "  before_filter :require_login\n\n"
+        inject_into_file file, "\n\n  private", after: /protect_from_forgery.*$/
+        lines = [
+          "",
+          "  def not_authenticated",
+          "    redirect_to login_path, alert: t('sorcery.required')",
+          "  end",
+          ""
+        ]
+        inject_into_file file, lines.join("\n"), before: /^end$/
       end
 
       protected

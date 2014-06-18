@@ -8,37 +8,28 @@ module BootswatchRails
       
       def update_javascripts
         return unless options.bootstrap?
-        inside "app/assets/javascripts" do
-          inject_into_file "application.js", after: /require jquery_ujs$/ do
-            "\n//= require bootstrap"
-          end
-        end
+        file = "app/assets/javascripts/application.js"
+        inject_into_file file, "\n//= require bootstrap", after: /require jquery_ujs$/
       end
       
       def update_application_controller
-        inside "app/controllers" do
-          file = "application_controller.rb"
-          inject_into_file file, after: /protect_from_forgery.*$/ do
-            "\n\n  private"
-          end
-          lines = [
-            "",
-            "  def default_theme",
-            "    BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s",
-            "  end",
-            "  helper_method :default_theme",
-            "",
-            "  def current_theme",
-            "    @current_theme = current_user.theme if current_user.present?",
-            "    @current_theme ||= default_theme",
-            "  end",
-            "  helper_method :current_theme",
-            ""
-          ]
-          inject_into_file file, before: /^end$/ do
-            lines.join("\n")
-          end
-        end
+        file = "app/controllers/application_controller.rb"
+        inject_into_file file, "\n\n  private", after: /protect_from_forgery.*$/
+        lines = [
+          "",
+          "  def default_theme",
+          "    BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s",
+          "  end",
+          "  helper_method :default_theme",
+          "",
+          "  def current_theme",
+          "    @current_theme = current_user.theme if current_user.present?",
+          "    @current_theme ||= default_theme",
+          "  end",
+          "  helper_method :current_theme",
+          ""
+        ]
+        inject_into_file file, lines.join("\n"), before: /^end$/
       end
       
       def copy_directories
@@ -49,4 +40,3 @@ module BootswatchRails
     end
   end
 end
-

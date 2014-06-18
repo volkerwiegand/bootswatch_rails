@@ -22,6 +22,7 @@ de:
     failed: "E-Mail oder Kennwort ungültig"
     success: "Willkommen und frohes Schaffen!"
     goodbye: "Tschüss und bis bald."
+    required: "Bitte melden Sie sich zurerst an."
 
   <%= name %>_mailer:
     reset_password_email:
