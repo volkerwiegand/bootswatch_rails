@@ -1,4 +1,7 @@
 de:
+  navigation:
+    toggle: "Navigation umschalten"
+    
   headers:
     index: "%{name} auflisten"
     show: "%{name} anzeigen"

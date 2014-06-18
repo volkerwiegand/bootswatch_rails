@@ -1,0 +1,27 @@
+en:
+  navigation:
+    toggle: "Toggle navigation"
+    
+  headers:
+    index: "Listing %{name}"
+    show: "Showing %{name}"
+    new: "Adding %{name}"
+    edit: "Editing %{name}"
+    destroy: "Deleting %{name}"
+    
+  actions:
+    title: "Action"
+    create: "Add"
+    show: "Show"
+    edit: "Edit"
+    destroy: "Delete"
+    confirm: "Are you sure?"
+    back:
+      index: "Back to listing"
+      show: "Back to showing"
+    add: "Add %{name}"
+    
+  results:
+    created: "%{name} created."
+    updated: "%{name} updated."
+    deleted: "%{name} deleted."
