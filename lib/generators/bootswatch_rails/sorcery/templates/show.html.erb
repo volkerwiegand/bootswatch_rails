@@ -4,7 +4,7 @@
   <tbody>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.email') %></td>
-      <td><%%= @<%= name %>.email %></td>
+      <td><%%= link_to @<%= name %>.email, "mailto:#{@<%= name %>.email}" %></td>
     </tr>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.name') %></td>
@@ -31,6 +31,14 @@
       <td><%%= t('activerecord.attributes.<%= name %>.last_login_from_ip_address') %></td>
       <td><%%= @<%= name %>.last_login_from_ip_address %></td>
     </tr>
+<%- end -%>
+<%- if brute_force_protection? -%>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.failed_logins_count') %></td>
+      <td><%%= @<%= name %>.failed_logins_count %></td>
+    </tr>
+<%- end -%>
+<%- if activity_logging? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_logout_at') %></td>
       <td><%%= @<%= name %>.last_logout_at %></td>
@@ -41,10 +49,6 @@
     </tr>
 <%- end -%>
 <%- if brute_force_protection? -%>
-    <tr>
-      <td><%%= t('activerecord.attributes.<%= name %>.failed_logins_count') %></td>
-      <td><%%= @<%= name %>.failed_logins_count %></td>
-    </tr>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.lock_expires_at') %></td>
       <td><%%= @<%= name %>.lock_expires_at %></td>
