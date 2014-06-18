@@ -78,8 +78,8 @@ module BootswatchRails
         ] if reset_password?
         lines << [
           "  end",
-          "get '/login'  => '#{table_name}#log_in',  as: :login",
-          "get '/logout' => '#{table_name}#log_out', as: :logout",
+          "  get '/login'  => '#{table_name}#log_in',  as: :login,  format: false",
+          "  get '/logout' => '#{table_name}#log_out', as: :logout, format: false",
           ""
         ]
         route lines.join("\n")
