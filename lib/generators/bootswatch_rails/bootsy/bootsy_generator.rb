@@ -36,7 +36,7 @@ module BootswatchRails
       def add_to_view
         file = "app/views/#{table_name}/_form.html.erb"
         columns.each do |column|
-          gsub_file file, /(input :#{column}) /, "\\1, as: :bootsy, rows: 12 "
+          gsub_file file, /(input :#{column}) /, "\\1, as: :bootsy, input_html: { rows: 10 } "
         end
       end
       
