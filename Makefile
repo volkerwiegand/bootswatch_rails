@@ -5,6 +5,7 @@
 
 all:
 	./generate.sh
+	test -d cleditor && git add cleditor || true
 	git add lib
 	git add vendor
 	vim lib/bootswatch_rails/version.rb
