@@ -3,7 +3,7 @@
 <%%= simple_form_for(@<%= name %>, url: {action: "access"}) do |f| %>
   <%%= f.error_notification %>
 
-  <%%= f.input :email %>
+  <%%= f.input :email, autofocus: true %>
   <%%= f.input :password %>
 <%- if remember_me? -%>
   <%%= f.input :remember_me %>

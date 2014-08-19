@@ -1,7 +1,7 @@
 <%%= simple_form_for(@<%= name %>) do |f| %>
   <%%= f.error_notification %>
 
-  <%%= f.input :email %>
+  <%%= f.input :email, autofocus: true %>
   <%%= f.input :name %>
   <%%= f.input :active %>
   <%%= f.input :password %>

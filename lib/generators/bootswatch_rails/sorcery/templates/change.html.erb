@@ -5,7 +5,7 @@
 
   <%%= f.input :email, disabled: true, required: false %>
   <%%= f.input :reset_password_token, as: :hidden %>
-  <%%= f.input :password, required: true %>
+  <%%= f.input :password, required: true, autofocus: true %>
   <%%= f.input :password_confirmation, required: true %>
 
   <%%= f.button :submit, t('sorcery.reset.change'), class: 'btn btn-primary' %>

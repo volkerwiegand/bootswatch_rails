@@ -13,7 +13,7 @@ module BootswatchRails
         file = "app/assets/javascripts/application.js"
         inject_into_file file, "\n//= require bootstrap", after: /require jquery_ujs$/
         unless options.turbolinks?
-          gsub_file file, /^\/\/(= require turbolinks)/, "//---\\1"
+          gsub_file file, /^\/\/=( require turbolinks)/, "// \\1"
           comment_lines "Gemfile", /gem 'turbolinks/
         end
       end
