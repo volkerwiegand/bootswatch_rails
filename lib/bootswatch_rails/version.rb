@@ -1,5 +1,5 @@
 module BootswatchRails
-  VERSION = "3.2.0.1"
-  THEMES = [:amelia, :cerulean, :cosmo, :custom, :cyborg, :darkly, :flatly, :journal, :lumen, :readable, :simplex, :slate, :spacelab, :superhero, :united, :yeti]
+  VERSION = "3.2.0.2"
+  THEMES = [:amelia, :cerulean, :cosmo, :custom, :cyborg, :darkly, :flatly, :journal, :lumen, :paper, :readable, :sandstone, :simplex, :slate, :spacelab, :superhero, :united, :yeti]
   DEFAULT = 1
 end

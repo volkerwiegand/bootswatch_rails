@@ -3,7 +3,7 @@ de:
     log_in: "Login"
     log_out: "Logout"
     sign_up: "Benutzerkonto anlegen"
-    header: "Anmelden am System"
+    header: "Login für interne Benutzer"
     submit: "Login"
 <%- if reset_password? -%>
     reset:
