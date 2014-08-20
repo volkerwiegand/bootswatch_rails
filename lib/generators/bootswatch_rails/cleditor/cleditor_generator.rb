@@ -20,15 +20,15 @@ module BootswatchRails
       def add_to_view
         file = "app/views/#{table_name}/index.html.erb"
         columns.each do |column|
-          gsub_file file, /(#{name}\.#{column})/, "raw(\\1)"
+          gsub_file file, / (#{name}\.#{column}) /, " raw(\\1) "
         end
         file = "app/views/#{table_name}/show.html.erb"
         columns.each do |column|
-          gsub_file file, /(@#{name}\.#{column})/, "raw(\\1)"
+          gsub_file file, / (@#{name}\.#{column}) /, " raw(\\1) "
         end
         file = "app/views/#{table_name}/_form.html.erb"
         columns.each do |column|
-          gsub_file file, /(:#{column}) /, "\\1, input_html: { class: 'cleditor' } "
+          gsub_file file, / (:#{column}) /, " \\1, input_html: { class: 'cleditor' } "
         end
       end
     end
