@@ -8,7 +8,7 @@ module BootswatchRails
                desc: "The resource to be updated"
       argument :user, type: :string, default: "user",
                banner: "user model (default 'user')"
-      class_option :migration, type: :boolean, default: true,
+      class_option :migration, type: :boolean, default: false,
                desc: 'Create a migration for added attributes'
       source_root File.expand_path('../templates', __FILE__)
       
@@ -23,19 +23,20 @@ module BootswatchRails
       
       def update_controller
         file = "app/controllers/#{table_name}_controller.rb"
+        curr = "current_#{user}"
         inject_into_file file, after: /def update$/ do
-          "\n    @#{name}.updated_by = current_#{user}.id if current_#{user}"
+          "\n    @#{name}.updated_by = #{curr} ? #{curr}.id : nil"
         end
         inject_into_file file, after: /@#{name} = #{class_name}\.new\(#{name}_params\)$/ do
-          "\n    @#{name}.created_by = current_#{user}.id if current_#{user}" +
-          "\n    @#{name}.updated_by = current_#{user}.id if current_#{user}"
+          "\n    @#{name}.created_by = #{curr} ? #{curr}.id : nil" +
+          "\n    @#{name}.updated_by = #{curr} ? #{curr}.id : nil"
         end
       end
       
       protected
       
       def migration_name
-        "add_created_by_to_#{name}"
+        "add_created_by_to_#{table_name}"
       end
     end
   end
