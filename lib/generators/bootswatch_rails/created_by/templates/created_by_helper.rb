@@ -3,9 +3,9 @@ module CreatedByHelper
     begin
       id = model.send("#{action}d_by")
       time = model.send("#{action}d_at")
-      <%= user %> = <%= <%= user %>.camelize %>.find(id)
-      name = <%= user %>.name
-      email = <%= user %>.email
+      user = <%= user.camelize %>.find(id)
+      name = user.name
+      email = user.email
     rescue
       return ""
     end
