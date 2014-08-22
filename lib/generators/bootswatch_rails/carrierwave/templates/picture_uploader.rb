@@ -46,6 +46,9 @@ class <%= column.camelize %>Uploader < CarrierWave::Uploader::Base
   version :display do
     process :resize_to_limit => [600, 600]
   end
+  version :avatar do
+    process :resize_to_limit => [350, 350]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

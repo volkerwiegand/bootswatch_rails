@@ -22,7 +22,7 @@
   <%%- if @<%= name %>.picture.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.picture') %></td>
-      <td><%%= image_tag(@<%= name %>.picture_url(:display)) %></td>
+      <td><%%= image_tag(@<%= name %>.picture_url(:avatar)) %></td>
     </tr>
   <%%- end -%>
 <%- end -%>
@@ -60,13 +60,13 @@
   <%%- if @<%= name %>.last_logout_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_logout_at') %></td>
-      <td><%%= @<%= name %>.last_logout_at %></td>
+      <td><%%= l(@<%= name %>.last_logout_at) %></td>
     </tr>
   <%%- end -%>
   <%%- if @<%= name %>.last_activity_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_activity_at') %></td>
-      <td><%%= @<%= name %>.last_activity_at %></td>
+      <td><%%= l(@<%= name %>.last_activity_at) %></td>
     </tr>
   <%%- end -%>
 <%- end -%>
@@ -74,7 +74,7 @@
   <%%- if @<%= name %>.lock_expires_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.lock_expires_at') %></td>
-      <td><%%= @<%= name %>.lock_expires_at %></td>
+      <td><%%= l(@<%= name %>.lock_expires_at) %></td>
     </tr>
   <%%- end -%>
 <%- end -%>
