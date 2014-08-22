@@ -4,9 +4,17 @@
   <thead>
     <tr>
 <% attributes.each do |attribute| -%>
-      <th><%%= t('activerecord.attributes.<%= singular_table_name %>.<%= attribute.name %>') %></th>
+      <th>
+  <%- if [ "created_by", "updated_by" ].include? attribute.name -%>
+        <%%= t('activerecord.attributes.<%= attribute.name %>') %>
+  <%- else -%>
+        <%%= t('activerecord.attributes.<%= singular_table_name %>.<%= attribute.name %>') %>
+  <%- end -%>
+      </th>
 <% end -%>
-      <th class="index-actions"><%%= t('actions.title') %></th>
+      <th class="index-actions">
+        <%%= t('actions.title') %>
+      </th>
     </tr>
   </thead>
 

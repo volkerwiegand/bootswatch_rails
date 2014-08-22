@@ -2,6 +2,7 @@
   <%%= f.error_notification %>
 
 <%- attributes.each do |attribute| -%>
+<%- next if [ "created_by", "updated_by" ].include? attribute.name -%>
   <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
 <%- if attribute.name.include?("picture") -%>
   <%%= f.input :<%= attribute.name %>_cache, as: :hidden %>

@@ -5,7 +5,11 @@
 <% attributes.each do |attribute| -%>
     <tr>
       <td>
+  <%- if [ "created_by", "updated_by" ].include? attribute.name -%>
+        <%%= t('activerecord.attributes.<%= attribute.name %>') %>
+  <%- else -%>
         <%%= t('activerecord.attributes.<%= singular_table_name %>.<%= attribute.name %>') %>
+  <%- end -%>
       </td>
       <td>
   <%- if attribute.name.include?("picture") -%>
