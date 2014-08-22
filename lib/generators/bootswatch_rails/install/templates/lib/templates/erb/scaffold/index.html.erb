@@ -29,6 +29,10 @@
           <%%= <%= singular_table_name %>.<%= attribute.name %> ? t('simple_form.yes') : t('simple_form.no') %>
   <%- elsif attribute.type == :belongs_to -%>
           <%%= <%= singular_table_name %>.<%= attribute.name %>.name %>
+  <%- elsif attribute.name == "created_by" -%>
+          <%%= raw(text_created_by(@<%= singular_table_name %>, "create")) %>
+  <%- elsif attribute.name == "updated_by" -%>
+          <%%= raw(text_created_by(@<%= singular_table_name %>, "update")) %>
   <%- else -%>
           <%%= <%= singular_table_name %>.<%= attribute.name %> %>
   <%- end -%>
