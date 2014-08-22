@@ -2,7 +2,7 @@ module BootswatchRails
   module Generators
     class InstallGenerator < Rails::Generators::Base
       desc "Setup application to use bootswatch.com"
-      class_option :bootstrap, type: :boolean, default: true,
+      class_option :bootstrap, type: :boolean, default: false,
                desc: 'Add bootstrap to application.js'
       class_option :turbolinks, type: :boolean, default: false,
                desc: 'Activate turbolinks (off by default)'
@@ -13,7 +13,7 @@ module BootswatchRails
         file = "app/assets/javascripts/application.js"
         inject_into_file file, "\n//= require bootstrap", after: /require jquery_ujs$/
         unless options.turbolinks?
-          gsub_file file, /^\/\/=( require turbolinks)/, "// \\1"
+          gsub_file file, /^\/\/= require turbolinks\n/, ""
           comment_lines "Gemfile", /gem 'turbolinks/
         end
       end
