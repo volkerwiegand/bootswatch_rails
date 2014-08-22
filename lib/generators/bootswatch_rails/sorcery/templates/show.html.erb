@@ -4,7 +4,7 @@
   <tbody>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.email') %></td>
-      <td><%%= mail_to(<%= name %>.email, <%= name %>.name) %></td>
+      <td><%%= mail_to(@<%= name %>.email) %></td>
     </tr>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.name') %></td>
@@ -19,10 +19,12 @@
       <td><%%= raw(@<%= name %>.comment) %></td>
     </tr>
 <%- if has_picture? -%>
+  <%%- if @<%= name %>.picture.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.picture') %></td>
       <td><%%= image_tag(@<%= name %>.picture_url(:display)) %></td>
     </tr>
+  <%%- end -%>
 <%- end -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.theme') %></td>
@@ -37,14 +39,16 @@
       <td><%%= t('enums.<%= name %>.status.' + @<%= name %>.status) %></td>
     </tr>
 <%- if activity_logging? -%>
+  <%%- if @<%= name %>.last_login_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_login_at') %></td>
-      <td><%%= @<%= name %>.last_login_at %></td>
+      <td><%%= l(@<%= name %>.last_login_at) %></td>
     </tr>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_login_from_ip_address') %></td>
       <td><%%= @<%= name %>.last_login_from_ip_address %></td>
     </tr>
+  <%%- end -%>
 <%- end -%>
 <%- if brute_force_protection? -%>
     <tr>
@@ -53,20 +57,26 @@
     </tr>
 <%- end -%>
 <%- if activity_logging? -%>
+  <%%- if @<%= name %>.last_logout_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_logout_at') %></td>
       <td><%%= @<%= name %>.last_logout_at %></td>
     </tr>
+  <%%- end -%>
+  <%%- if @<%= name %>.last_activity_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_activity_at') %></td>
       <td><%%= @<%= name %>.last_activity_at %></td>
     </tr>
+  <%%- end -%>
 <%- end -%>
 <%- if brute_force_protection? -%>
+  <%%- if @<%= name %>.lock_expires_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.lock_expires_at') %></td>
       <td><%%= @<%= name %>.lock_expires_at %></td>
     </tr>
+  <%%- end -%>
 <%- end -%>
   </tbody>
 </table>

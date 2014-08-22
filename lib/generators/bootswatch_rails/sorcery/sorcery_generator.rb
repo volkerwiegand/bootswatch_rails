@@ -181,7 +181,7 @@ module BootswatchRails
       def whitelist
         text = ":email, :name, :phone, :comment, :theme, " +
         ":active, :status, :password, :password_confirmation"
-        text += ", :picture" if has_picture?
+        text += ", :picture, :picture_cache" if has_picture?
       end
     end
   end
