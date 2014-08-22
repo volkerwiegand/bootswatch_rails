@@ -4,6 +4,10 @@
 #
 
 all: build
+	git status
+
+release: build
+	./generate.sh
 	vim lib/bootswatch_rails/version.rb
 	git commit -a
 	rake release
@@ -13,7 +17,6 @@ install: build
 	sudo rake install
 
 build:
-	./generate.sh
 	test -d cleditor && git add cleditor || true
 	git add lib
 	git add vendor

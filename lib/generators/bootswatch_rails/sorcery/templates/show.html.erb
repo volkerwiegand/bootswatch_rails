@@ -4,11 +4,27 @@
   <tbody>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.email') %></td>
-      <td><%%= link_to @<%= name %>.email, "mailto:#{@<%= name %>.email}" %></td>
+      <td><%%= mail_to(<%= name %>.email, <%= name %>.name) %></td>
     </tr>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.name') %></td>
       <td><%%= @<%= name %>.name %></td>
+    </tr>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.phone') %></td>
+      <td><%%= @<%= name %>.phone %></td>
+    </tr>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.comment') %></td>
+      <td><%%= raw(@<%= name %>.comment) %></td>
+    </tr>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.picture') %></td>
+      <td><%%= image_tag(@<%= name %>.picture_url(:display)) %></td>
+    </tr>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.theme') %></td>
+      <td><%%= @<%= name %>.theme %></td>
     </tr>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.active') %></td>
@@ -17,10 +33,6 @@
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.status') %></td>
       <td><%%= t('enums.<%= name %>.status.' + @<%= name %>.status) %></td>
-    </tr>
-    <tr>
-      <td><%%= t('activerecord.attributes.<%= name %>.theme') %></td>
-      <td><%%= @<%= name %>.theme %></td>
     </tr>
 <%- if activity_logging? -%>
     <tr>

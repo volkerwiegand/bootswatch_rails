@@ -5,9 +5,12 @@
     <tr>
       <th><%%= t('activerecord.attributes.<%= name %>.email') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.name') %></th>
+      <th><%%= t('activerecord.attributes.<%= name %>.phone') %></th>
+      <th><%%= t('activerecord.attributes.<%= name %>.comment') %></th>
+      <th><%%= t('activerecord.attributes.<%= name %>.picture') %></th>
+      <th><%%= t('activerecord.attributes.<%= name %>.theme') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.active') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.status') %></th>
-      <th><%%= t('activerecord.attributes.<%= name %>.theme') %></th>
       <th class="index-actions"><%%= t('actions.title') %></th>
     </tr>
   </thead>
@@ -15,11 +18,14 @@
   <tbody>
     <%% @<%= table_name %>.each do |<%= name %>| %>
       <tr>
-        <td><%%= link_to <%= name %>.email, "mailto:#{<%= name %>.email}" %></td>
+        <td><%%= mail_to(<%= name %>.email, <%= name %>.name) %></td>
         <td><%%= <%= name %>.name %></td>
+        <td><%%= <%= name %>.phone %></td>
+        <td><%%= <%= name %>.comment %></td>
+        <td><%%= image_tag(<%= name %>.picture_url(:thumb).to_s)</td>
+        <td><%%= <%= name %>.theme %></td>
         <td><%%= <%= name %>.active ? t('simple_form.yes') : t('simple_form.no') %></td>
         <td><%%= t('enums.<%= name %>.status.' + <%= name %>.status) %></td>
-        <td><%%= <%= name %>.theme %></td>
         <td class="index-actions">
           <%%= link_to t('actions.show'), <%= name %>, class: 'btn btn-default btn-xs' %>
           <br>

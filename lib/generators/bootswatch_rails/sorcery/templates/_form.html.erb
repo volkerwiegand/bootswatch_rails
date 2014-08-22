@@ -3,11 +3,14 @@
 
   <%%= f.input :email, autofocus: true %>
   <%%= f.input :name %>
+  <%%= f.input :phone %>
+  <%%= f.input :comment %>
+  <%%= f.input :picture %>
+  <%%= f.input :theme %>
   <%%= f.input :active %>
   <%%= f.input :password %>
   <%%= f.input :password_confirmation %>
   <%%= f.input :status %>
-  <%%= f.input :theme %>
 
   <%%= f.button :submit, class: 'btn btn-primary' %>
   <%%- if @<%= name %>.new_record? -%>

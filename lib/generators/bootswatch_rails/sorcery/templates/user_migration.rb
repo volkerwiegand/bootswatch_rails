@@ -3,9 +3,12 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
     create_table :<%= table_name %> do |t|
       t.string :email, null: false
       t.string :name
+      t.string :phone
+      t.text :comment
+      t.string :picture
+      t.integer :theme, default: BootswatchRails::DEFAULT
       t.boolean :active, default: true
       t.integer :status, default: 0
-      t.integer :theme, default: BootswatchRails::DEFAULT
 
       t.string :crypted_password, null: false
       t.string :salt, null: false

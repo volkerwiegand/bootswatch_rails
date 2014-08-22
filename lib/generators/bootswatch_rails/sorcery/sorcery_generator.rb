@@ -173,7 +173,8 @@ module BootswatchRails
       end
 
       def whitelist
-        ":email, :name, :active, :status, :password, :password_confirmation, :theme"
+        ":email, :name, :phone, :comment, :picture, :theme, " +
+        ":active, :status, :password, :password_confirmation"
       end
     end
   end

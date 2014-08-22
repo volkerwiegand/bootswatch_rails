@@ -45,9 +45,12 @@ de:
       <%= name %>:
         email: "E-Mail"
         name: "Name"
+        name: "Telefon"
+        name: "Bemerkung"
+        name: "Bild"
+        theme: "Oberfläche"
         active: "Aktiv"
         status: "Status"
-        theme: "Oberfläche"
         password: "Kennwort"
         password_confirmation: "Kennwort wiederholen"
 <%- if remember_me? -%>
