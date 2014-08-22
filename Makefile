@@ -10,6 +10,7 @@ rel: build
 	./generate.sh
 	vim lib/bootswatch_rails/version.rb
 	git commit -a
+	sudo gem uninstall bootswatch_rails
 	rake release
 
 install: build

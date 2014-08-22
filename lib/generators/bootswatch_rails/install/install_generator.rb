@@ -37,7 +37,7 @@ module BootswatchRails
         return if options.turbolinks?
         comment_lines "Gemfile", /gem 'turbolinks/
         file = "app/assets/javascripts/application.js"
-        gsub_file file, /^\/\/= require turbolinks/, ""
+        gsub_file file, /^\/\/= require turbolinks\s/, ""
         file = "app/views/layouts/_head.html.erb"
         gsub_file file, /, 'data-turbolinks-track' => true/, ""
       end
