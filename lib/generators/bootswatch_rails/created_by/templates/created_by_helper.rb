@@ -1,15 +1,20 @@
 module CreatedByHelper
   def text_created_by(model, action = "create", mode = "short")
     begin
-      id = model.send("#{action}d_by")
-      time = model.send("#{action}d_at")
+      if action.include?("update")
+        id = model.updated_by
+        time = model.updated_at
+      else
+        id = model.created_by
+        time = model.created_at
+      end
       user = <%= user.camelize %>.find(id)
       name = user.name
       email = user.email
     rescue
       return ""
     end
-    case mode in
+    case mode
       when "name"
         name
       when "email"
