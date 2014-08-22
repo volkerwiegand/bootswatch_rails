@@ -6,8 +6,10 @@ class <%= class_name %> < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true, on: :create
 
+<%- if has_picture? -%>
   mount_uploader :picture, PictureUploader
 
+<%- end -%>
   enum status: <%= BootswatchRails::USER_STATUS %>
   validates :status, presence: true
 

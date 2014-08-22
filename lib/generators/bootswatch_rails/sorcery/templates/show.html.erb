@@ -18,10 +18,12 @@
       <td><%%= t('activerecord.attributes.<%= name %>.comment') %></td>
       <td><%%= raw(@<%= name %>.comment) %></td>
     </tr>
+<%- if has_picture? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.picture') %></td>
       <td><%%= image_tag(@<%= name %>.picture_url(:display)) %></td>
     </tr>
+<%- end -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.theme') %></td>
       <td><%%= @<%= name %>.theme %></td>

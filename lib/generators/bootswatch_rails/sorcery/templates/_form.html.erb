@@ -5,7 +5,22 @@
   <%%= f.input :name %>
   <%%= f.input :phone %>
   <%%= f.input :comment %>
+<%- if has_picture? -%>
   <%%= f.input :picture %>
+  <%%= f.input :picture_cache, as: :hidden %>
+  <%%- if @<%= name %>.picture? -%>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <%%= image_tag(@<%= name %>.picture_url(:thumb)) %>
+        &nbsp;&nbsp;&nbsp;
+        <label for="<%= name %>_remove_picture">
+          <%%= f.check_box :remove_picture %>
+          <%%= t('headers.destroy', name: t('activerecord.attributes.<%= name %>.picture')) %>
+        </label>
+      </div>
+    </div>
+  <%%- end -%>
+<%- end -%>
   <%%= f.input :theme %>
   <%%= f.input :active %>
   <%%= f.input :password %>

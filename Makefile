@@ -6,13 +6,14 @@
 all: build
 	git status
 
-release: build
+rel: build
 	./generate.sh
 	vim lib/bootswatch_rails/version.rb
 	git commit -a
 	rake release
 
 install: build
+	vim lib/bootswatch_rails/version.rb
 	git commit -a
 	sudo rake install
 

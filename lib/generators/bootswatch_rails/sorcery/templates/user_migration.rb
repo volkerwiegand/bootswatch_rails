@@ -5,7 +5,9 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
       t.string :name
       t.string :phone
       t.text :comment
+<%- if has_picture? -%>
       t.string :picture
+<%- end -%>
       t.integer :theme, default: BootswatchRails::DEFAULT
       t.boolean :active, default: true
       t.integer :status, default: 0

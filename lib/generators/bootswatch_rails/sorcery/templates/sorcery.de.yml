@@ -45,9 +45,11 @@ de:
       <%= name %>:
         email: "E-Mail"
         name: "Name"
-        name: "Telefon"
-        name: "Bemerkung"
-        name: "Bild"
+        phone: "Telefon"
+        comment: "Bemerkung"
+<%- if has_picture? -%>
+        picture: "Bild"
+<%- end -%>
         theme: "Oberfläche"
         active: "Aktiv"
         status: "Status"

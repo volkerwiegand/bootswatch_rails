@@ -7,7 +7,9 @@
       <th><%%= t('activerecord.attributes.<%= name %>.name') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.phone') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.comment') %></th>
+<%- if has_picture? -%>
       <th><%%= t('activerecord.attributes.<%= name %>.picture') %></th>
+<%- end -%>
       <th><%%= t('activerecord.attributes.<%= name %>.theme') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.active') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.status') %></th>
@@ -22,7 +24,9 @@
         <td><%%= <%= name %>.name %></td>
         <td><%%= <%= name %>.phone %></td>
         <td><%%= <%= name %>.comment %></td>
+<%- if has_picture? -%>
         <td><%%= image_tag(<%= name %>.picture_url(:thumb).to_s)</td>
+<%- end -%>
         <td><%%= <%= name %>.theme %></td>
         <td><%%= <%= name %>.active ? t('simple_form.yes') : t('simple_form.no') %></td>
         <td><%%= t('enums.<%= name %>.status.' + <%= name %>.status) %></td>

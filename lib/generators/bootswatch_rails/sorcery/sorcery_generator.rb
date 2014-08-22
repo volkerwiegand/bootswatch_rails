@@ -5,9 +5,11 @@ module BootswatchRails
 
   module Generators
     class SorceryGenerator < ActiveRecord::Generators::Base
-      desc "Install model, views and controller for Sorcery."
+      desc "Install model, views and controller for user with Sorcery."
       argument :name, type: :string, default: "user",
                banner: "user model (default 'user')"
+      class_option :picture, type: :boolean, default: false,
+               desc: 'Add picture to user (needs carrierwave)'
       class_option :user_activation, type: :boolean, default: false,
                desc: 'User activation by email with optional success email'
       class_option :reset_password, type: :boolean, default: false,
@@ -111,6 +113,10 @@ module BootswatchRails
 
       protected
 
+      def has_picture?
+        options.picture?
+      end
+
       def user_activation?
         options.user_activation?
       end
@@ -173,8 +179,9 @@ module BootswatchRails
       end
 
       def whitelist
-        ":email, :name, :phone, :comment, :picture, :theme, " +
+        text = ":email, :name, :phone, :comment, :theme, " +
         ":active, :status, :password, :password_confirmation"
+        text += ", :picture" if has_picture?
       end
     end
   end
