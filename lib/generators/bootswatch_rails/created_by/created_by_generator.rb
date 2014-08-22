@@ -18,7 +18,7 @@ module BootswatchRails
       end
       
       def add_helper
-        copy_file "created_by_helper.rb", "app/helpers/created_by_helper.rb"
+        template "created_by_helper.rb", "app/helpers/created_by_helper.rb"
       end
       
       def update_controller
