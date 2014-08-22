@@ -14,7 +14,6 @@ rel: build
 	rake release
 
 install: build
-	vim lib/bootswatch_rails/version.rb
 	git commit -a
 	sudo rake install
 
