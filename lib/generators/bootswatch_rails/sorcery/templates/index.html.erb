@@ -26,10 +26,12 @@
         <td><%%= t('enums.<%= name %>.status.' + <%= name %>.status) %></td>
         <td class="index-actions">
           <%%= link_to t('actions.show'), <%= name %>, class: 'btn btn-default btn-xs' %>
-          <br>
-          <%%= link_to t('actions.edit'), [:edit, <%= name %>], class: 'btn btn-default btn-xs' %>
-          <br>
-          <%%- if current_<%= name %>.status == :sysadm and <%= name %> != current_<%= name %> -%>
+          <%%- if current_<%= name %>.status.to_sym == :sysadm or <%= name %> == current_<%= name %> -%>
+            <br>
+            <%%= link_to t('actions.edit'), [:edit, <%= name %>], class: 'btn btn-default btn-xs' %>
+          <%%- end -%>
+          <%%- if current_<%= name %>.status.to_sym == :sysadm and <%= name %> != current_<%= name %> -%>
+            <br>
             <%%= link_to t('actions.destroy'), <%= name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger btn-xs' %>
           <%%- end -%>
         </td>
