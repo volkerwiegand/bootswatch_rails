@@ -29,7 +29,9 @@
           <br>
           <%%= link_to t('actions.edit'), [:edit, <%= name %>], class: 'btn btn-default btn-xs' %>
           <br>
-          <%%= link_to t('actions.destroy'), <%= name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger btn-xs' %>
+          <%%- if current_<%= name %>.status == :sysadm and <%= name %> != current_<%= name %> -%>
+            <%%= link_to t('actions.destroy'), <%= name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger btn-xs' %>
+          <%%- end -%>
         </td>
       </tr>
     <%% end %>

@@ -83,4 +83,6 @@
 
 <%%= link_to t('actions.edit'), [:edit, @<%= name %>], class: 'btn btn-primary' %>
 <%%= link_to t('actions.back.index'), <%= table_name %>_path, class: 'btn btn-default' %>
-<%%= link_to t('actions.destroy'), @<%= name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger' %>
+<%%- if current_<%= name %>.status == :sysadm and @<%= name %> != current_<%= name %> -%>
+  <%%= link_to t('actions.destroy'), @<%= name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger' %>
+<%%- end -%>

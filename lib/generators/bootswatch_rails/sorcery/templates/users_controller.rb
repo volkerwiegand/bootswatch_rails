@@ -127,6 +127,10 @@ class <%= controller_name.camelize %> < ApplicationController
   # DELETE /<%= table_name %>/1
   # DELETE /<%= table_name %>/1.json
   def destroy
+    if @<%= name %> == current_<%= name %> or current_<%= name %>.status != :sysadm
+      redirect_to root_path, alert: t('sorcery.forbidden')
+      return
+    end
     @<%= name %>.destroy
     respond_to do |format|
       format.html { redirect_to <%= table_name %>_url, notice: t('results.deleted', name: t('activerecord.models.<%= name %>.one')) }
