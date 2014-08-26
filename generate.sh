@@ -101,12 +101,12 @@ if [ -s cleditor/jquery.cleditor.js ] ; then
 		mv /tmp/cleditor.tmp $_dst
 	fi
 
+	_dir="lib/generators/bootswatch_rails/install/templates/app/assets/images"
 	for _file in toolbar.gif buttons.gif ; do
 		_src="cleditor/images/$_file"
-		_dst="vendor/assets/images/$_file"
-		if ! cmp -s $_src $_dst ; then
+		if ! cmp -s $_src $_dir/$_file ; then
 			echo "copy: $_src"
-			cp $_src $_dst
+			cp $_src $_dir/$_file
 		fi
 	done
 fi
