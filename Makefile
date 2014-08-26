@@ -16,6 +16,8 @@ rel: build
 
 install: build
 	git commit -a
+	sudo gem uninstall bootswatch_rails --all
+	sudo rake install
 
 build:
 	test -d cleditor && git add cleditor || true
