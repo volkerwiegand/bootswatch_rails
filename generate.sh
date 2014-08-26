@@ -92,8 +92,9 @@ if [ -s cleditor/jquery.cleditor.js ] ; then
 	fi
 
 	_src="cleditor/jquery.cleditor.css"
-	_dst="vendor/assets/stylesheets/jquery.cleditor.css"
-	sed -e 's/\r//g' -e 's%images/%/assets/%g' $_src >/tmp/cleditor.tmp
+	_dst="vendor/assets/stylesheets/jquery.cleditor.css.scss"
+	sed -e 's/\r//g' -e "s/url.*toolbar/asset_url('toolbar/" \
+			 -e "s/url.*buttons/asset_url('buttons/" $_src >/tmp/cleditor.tmp
 	if cmp -s /tmp/cleditor.tmp $_dst ; then
 		rm -f /tmp/cleditor.tmp
 	else
