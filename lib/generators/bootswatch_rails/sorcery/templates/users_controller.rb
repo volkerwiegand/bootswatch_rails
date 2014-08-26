@@ -127,7 +127,7 @@ class <%= controller_name.camelize %> < ApplicationController
   # DELETE /<%= table_name %>/1
   # DELETE /<%= table_name %>/1.json
   def destroy
-    if @<%= name %> == current_<%= name %> or current_<%= name %>.status != :sysadm
+    if @<%= name %> == current_<%= name %> or current_<%= name %>.status.to_sym != :sysadm
       redirect_to root_path, alert: t('sorcery.forbidden')
       return
     end
@@ -141,7 +141,7 @@ class <%= controller_name.camelize %> < ApplicationController
   # GET /<%= table_name %>/log_out
   def log_out
     logout
-    redirect_to root_url, notice: t('login.goodbye')
+    redirect_to root_url, notice: t('sorcery.goodbye')
   end
 
   private
