@@ -10,47 +10,12 @@
 # Exit on error 
 set -e                  
 
-if [ -s cleditor/jquery.cleditor.js ] ; then
-	_src="cleditor/jquery.cleditor.js"
-	_dst="vendor/assets/javascripts/jquery.cleditor.js"
-	sed -e 's/\r//g' $_src >/tmp/cleditor.tmp
-	if cmp -s /tmp/cleditor.tmp $_dst ; then
-		rm -f /tmp/cleditor.tmp
-	else
-		echo "edit: $_dst"
-		mv /tmp/cleditor.tmp $_dst
-	fi
-
-	_src="cleditor/jquery.cleditor.css"
-	_dst="vendor/assets/stylesheets/jquery.cleditor.css"
-	sed -e 's/\r//g' -e 's%images/%/assets/%g' $_src >/tmp/cleditor.tmp
-	if cmp -s /tmp/cleditor.tmp $_dst ; then
-		rm -f /tmp/cleditor.tmp
-	else
-		echo "edit: $_dst"
-		mv /tmp/cleditor.tmp $_dst
-	fi
-
-	for _file in toolbar.gif buttons.gif ; do
-		_src="cleditor/images/$_file"
-		_dst="vendor/assets/images/$_file"
-		if ! cmp -s $_src $_dst ; then
-			echo "copy: $_src"
-			cp $_src $_dst
-		fi
-	done
-	
-	_precompile="toolbar.gif buttons.gif bootstrap.js"
-else
-	_precompile="bootstrap.js"
-fi
-
-
 git submodule foreach git pull
 
 _assets="vendor/assets"
 for _dir in fonts images javascripts stylesheets ; do
 	mkdir -p $_assets/$_dir
+	touch $_assets/$_dir/.gitkeep
 done
 
 _themes_css=""
@@ -83,7 +48,7 @@ done
 _engine="lib/bootswatch_rails/engine.rb"
 if [ -s $_engine ] ; then
 	rm -f /tmp/engine.tmp
-	sed -e "/assets.precompile/s/=.*/= %w($_precompile $_themes_css)/" $_engine >/tmp/engine.tmp
+	sed -e "/assets.precompile/s/=.*/= %w(bootstrap.js $_themes_css)/" $_engine >/tmp/engine.tmp
 	if cmp -s /tmp/engine.tmp $_engine ; then
 		rm -f /tmp/engine.tmp
 	else
@@ -113,6 +78,38 @@ for _file in bootswatch/fonts/*.* ; do
 		cp $_src $_dst
 	fi
 done
+
+
+if [ -s cleditor/jquery.cleditor.js ] ; then
+	_src="cleditor/jquery.cleditor.js"
+	_dst="vendor/assets/javascripts/jquery.cleditor.js"
+	sed -e 's/\r//g' $_src >/tmp/cleditor.tmp
+	if cmp -s /tmp/cleditor.tmp $_dst ; then
+		rm -f /tmp/cleditor.tmp
+	else
+		echo "edit: $_dst"
+		mv /tmp/cleditor.tmp $_dst
+	fi
+
+	_src="cleditor/jquery.cleditor.css"
+	_dst="vendor/assets/stylesheets/jquery.cleditor.css"
+	sed -e 's/\r//g' -e 's%images/%/assets/%g' $_src >/tmp/cleditor.tmp
+	if cmp -s /tmp/cleditor.tmp $_dst ; then
+		rm -f /tmp/cleditor.tmp
+	else
+		echo "edit: $_dst"
+		mv /tmp/cleditor.tmp $_dst
+	fi
+
+	for _file in toolbar.gif buttons.gif ; do
+		_src="cleditor/images/$_file"
+		_dst="vendor/assets/images/$_file"
+		if ! cmp -s $_src $_dst ; then
+			echo "copy: $_src"
+			cp $_src $_dst
+		fi
+	done
+fi
 
 exit 0
 
