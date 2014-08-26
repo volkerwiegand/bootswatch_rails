@@ -10,12 +10,12 @@ rel: build
 	./generate.sh
 	vim lib/bootswatch_rails/version.rb
 	git commit -a
-	sudo gem uninstall bootswatch_rails
+	sudo gem uninstall bootswatch_rails --all
 	rake release
+	sudo rake install
 
 install: build
 	git commit -a
-	sudo rake install
 
 build:
 	test -d cleditor && git add cleditor || true

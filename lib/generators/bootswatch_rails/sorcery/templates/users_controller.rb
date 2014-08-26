@@ -1,4 +1,5 @@
 class <%= controller_name.camelize %> < ApplicationController
+  force_ssl if: :ssl_configured?
   skip_before_filter :require_login, only: [:log_in, :access, :password, :reset, :change, :refresh, :log_out]
   before_action :set_<%= name %>, only: [:show, :edit, :update, :destroy]
 
@@ -140,6 +141,11 @@ class <%= controller_name.camelize %> < ApplicationController
   end
 
   private
+    # Always enforce SSL for this controller
+    def ssl_configured?
+      Rails.env.production?
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_<%= name %>
       @<%= name %> = <%= class_name %>.find(params[:id])
