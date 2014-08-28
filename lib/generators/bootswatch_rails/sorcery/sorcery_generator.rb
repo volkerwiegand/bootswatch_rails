@@ -1,13 +1,15 @@
 require 'rails/generators/active_record'
 
 module BootswatchRails
-  USER_STATUS = %w(guest member admin sysadm)
-
   module Generators
     class SorceryGenerator < ActiveRecord::Generators::Base
-      desc "Install model, views and controller for user with Sorcery."
+      desc "Install authentication (with Sorcery) and (optional) authorization."
       argument :name, type: :string, default: "user",
                banner: "user model (default 'user')"
+      argument :role, type: :string, default: "role",
+               banner: "role model (set to nil to disable authorization)"
+      argument :ability, type: :string, default: "ability",
+               banner: "ability model (what users with roles can do)"
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave)'
       class_option :user_activation, type: :boolean, default: false,
@@ -30,12 +32,18 @@ module BootswatchRails
                desc: 'Layout to be used for rendering login.html.erb'
       source_root File.expand_path("../templates", __FILE__)
       
-      def add_migration
+      def add_migrations
         migration_template "user_migration.rb", "db/migrate/create_#{table_name}.rb"
+        return if role.blank?
+        migration_template "role_migration.rb", "db/migrate/create_#{role.pluralize}.rb"
+        migration_template "ability_migration.rb", "db/migrate/create_#{ability.pluralize}.rb"
       end
 
-      def add_model
+      def add_models
         template "user_model.rb", "app/models/#{name}.rb"
+        return if role.blank?
+        # template "role_model.rb", "app/models/#{role}.rb"
+        # template "ability_model.rb", "app/models/#{ability}.rb"
       end
 
       def add_mailer
@@ -44,8 +52,11 @@ module BootswatchRails
         template "reset_password_email.html.erb", "app/views/#{name}_mailer/reset_password_email.html.erb"
       end
 
-      def add_controller
+      def add_controllers
         template "users_controller.rb", "app/controllers/#{table_name}_controller.rb"
+        return if role.blank?
+        # template "role_controller.rb", "app/controllers/#{role.pluralize}_controller.rb"
+        # template "ability_controller.rb", "app/controllers/#{ability.pluralize}_controller.rb"
       end
 
       def add_views
@@ -54,6 +65,8 @@ module BootswatchRails
         views.each do |view|
           template "#{view}.html.erb", "app/views/#{table_name}/#{view}.html.erb"
         end
+        return if role.blank?
+        # TODO
       end
 
       def add_routes
@@ -84,6 +97,12 @@ module BootswatchRails
           "  get '/logout' => '#{table_name}#log_out', as: :logout, format: false",
           ""
         ]
+        lines << [
+          "",
+          "resources :#{role.pluralize}",
+          "resources :#{ability.pluralize}",
+          ""
+        ] if role.present?
         route lines.join("\n")
       end
 
@@ -166,21 +185,21 @@ module BootswatchRails
         options.layout
       end
 
-      def migration_name
-        "create_#{table_name}"
+      def migration_name(obj)
+        "create_#{obj.pluralize}"
       end
 
-      def mailer_name
-        "#{name}_mailer"
+      def member_migration
+        [ table_name, role.pluralize ].sort.join("_")
       end
 
-      def controller_name
-        "#{table_name}_controller"
+      def controller_name(obj)
+        "#{obj.pluralize}_controller"
       end
 
       def whitelist
         text = ":email, :name, :phone, :comment, :theme, " +
-        ":active, :status, :password, :password_confirmation"
+        ":active, :sysadm, :password, :password_confirmation"
         text += ", :picture, :picture_cache" if has_picture?
       end
     end

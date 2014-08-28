@@ -29,19 +29,19 @@ de:
     reset_password_email:
       subject: "Kennwort für #{name} zurücksetzen"
 
-  enums:
-    <%= name %>:
-      status:
-        guest: "Gast"
-        member: "Mitglied"
-        admin: "Admin"
-        sysadm: "System-Admin"
-
   activerecord:
     models:
       <%= name %>:
         one: "Benutzer"
         other: "Benutzer"
+<%- if role.present? -%>
+      <%= role %>:
+        one: "Rolle"
+        other: "Rollen"
+      <%= ability %>:
+        one: "Fähigkeit"
+        other: Fähigkeiten"
+<%- end -%>
     attributes:
       <%= name %>:
         email: "E-Mail"
@@ -53,7 +53,7 @@ de:
 <%- end -%>
         theme: "Oberfläche"
         active: "Aktiv"
-        status: "Status"
+        sysadm: "Admin"
         password: "Kennwort"
         password_confirmation: "Kennwort wiederholen"
 <%- if remember_me? -%>
@@ -69,3 +69,17 @@ de:
         failed_logins_count: "Fehlversuche Anmeldung"
         lock_expires_at: "Gesperrt bis"
 <%- end -%>
+<%- if role.present? -%>
+      <%= role %>:
+        name: "Bezeichnung"
+      <%= ability %>:
+        resource: "Tabelle"
+        create: "Anlegen"
+        read: "Lesen"
+        update: "Aktualisieren"
+        delete: "Löschen"
+        user1: "Zusatz1"
+        user2: "Zusatz2"
+        user3: "Zusatz3"
+<%- end -%>
+

@@ -35,8 +35,8 @@
       <td><%%= @<%= name %>.active ? t('simple_form.yes') : t('simple_form.no') %></td>
     </tr>
     <tr>
-      <td><%%= t('activerecord.attributes.<%= name %>.status') %></td>
-      <td><%%= t('enums.<%= name %>.status.' + @<%= name %>.status) %></td>
+      <td><%%= t('activerecord.attributes.<%= name %>.sysadm') %></td>
+      <td><%%= @<%= name %>.sysadm ? t('simple_form.yes') : t('simple_form.no') %></td>
     </tr>
 <%- if activity_logging? -%>
   <%%- if @<%= name %>.last_login_at.present? -%>

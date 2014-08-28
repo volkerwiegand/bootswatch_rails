@@ -1,4 +1,4 @@
-class <%= migration_name.camelize %> < ActiveRecord::Migration
+class <%= migration_name(name).camelize %> < ActiveRecord::Migration
   def change
     create_table :<%= table_name %> do |t|
       t.string :email, null: false
@@ -10,7 +10,7 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
 <%- end -%>
       t.integer :theme, default: BootswatchRails::DEFAULT
       t.boolean :active, default: true
-      t.integer :status, default: 0
+      t.boolean :sysadm, default: false
 
       t.string :crypted_password, null: false
       t.string :salt, null: false
@@ -45,7 +45,7 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
     end
 
     add_index :<%= table_name %>, :email, unique: true
-    add_index :<%= table_name %>, :status
+    add_index :<%= table_name %>, :sysadm
 <%- if user_activation? -%>
     add_index :<%= table_name %>, :activation_token
 <%- end -%>

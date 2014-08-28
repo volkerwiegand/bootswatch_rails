@@ -25,7 +25,9 @@
   <%%= f.input :active %>
   <%%= f.input :password %>
   <%%= f.input :password_confirmation %>
-  <%%= f.input :status %>
+<%- if current_<%= name %>.sysadmin and @<%= name %> != current_<%= name %> -%>
+  <%%= f.input :sysadm %>
+<%- end -%>
 
   <%%= f.button :submit, class: 'btn btn-primary' %>
   <%%- if @<%= name %>.new_record? -%>
