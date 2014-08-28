@@ -48,8 +48,8 @@ module BootswatchRails
 
       def add_mailer
         return unless reset_password?
-        template "user_mailer.rb", "app/mailers/#{name}_mailer.rb"
-        template "reset_password_email.html.erb", "app/views/#{name}_mailer/reset_password_email.html.erb"
+        template "user_mailer.rb", "app/mailers/#{mailer_name}.rb"
+        template "reset_password_email.html.erb", "app/views/#{mailer_name}/reset_password_email.html.erb"
       end
 
       def add_controllers
@@ -191,6 +191,10 @@ module BootswatchRails
 
       def member_migration
         [ table_name, role.pluralize ].sort.join("_")
+      end
+
+      def mailer_name
+        "#{name}_mailer"
       end
 
       def controller_name(obj)
