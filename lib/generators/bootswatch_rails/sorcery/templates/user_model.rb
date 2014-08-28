@@ -10,8 +10,5 @@ class <%= class_name %> < ActiveRecord::Base
   mount_uploader :picture, PictureUploader
 
 <%- end -%>
-  enum status: <%= BootswatchRails::USER_STATUS %>
-  validates :status, presence: true
-
   enum theme: BootswatchRails::THEMES
 end
