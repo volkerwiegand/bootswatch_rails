@@ -99,9 +99,9 @@ module BootswatchRails
           ""
         ]
         lines << [
-          "resources :roles",
-          "resources :assignments",
-          "resources :abilities",
+          "  resources :roles",
+          "  resources :assignments",
+          "  resources :abilities",
           ""
         ] if options.authorization?
         route lines.join("\n")
