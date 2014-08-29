@@ -101,7 +101,7 @@ module BootswatchRails
         lines << [
           "",
           "resources :roles",
-          "resources :assignments"
+          "resources :assignments",
           "resources :abilities",
           ""
         ] if options.authorization?
