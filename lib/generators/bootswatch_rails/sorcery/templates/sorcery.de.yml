@@ -39,8 +39,8 @@ de:
         one: "Rolle"
         other: "Rollen"
       assignment:
-        one: "Zuordnung"
-        other: "Zuordnungen"
+        one: "Rollenzuordnung"
+        other: "Rollenzuordnungen"
       ability:
         one: "Fähigkeit"
         other: Fähigkeiten"
@@ -72,7 +72,7 @@ de:
         failed_logins_count: "Fehlversuche Anmeldung"
         lock_expires_at: "Gesperrt bis"
 <%- end -%>
-<%- if authorization? -%>
+<%- if options.authorization? -%>
       role:
         name: "Bezeichnung"
       assignment:
@@ -80,12 +80,21 @@ de:
         role: "Rolle"
       ability:
         resource: "Tabelle"
-        create: "Anlegen"
-        read: "Lesen"
-        update: "Aktualisieren"
-        delete: "Löschen"
-        user1: "Zusatz1"
-        user2: "Zusatz2"
-        user3: "Zusatz3"
+        create_new: "Neu Anlegen"
+        read_own: "Lesen Eigene"
+        read_any: "Lesen Alle"
+        update_own: "Edit Eigene"
+        update_any: "Edit Alle"
+        delete_own: "Löschen Eigene"
+        delete_any: "Löschen Alle"
+        user1_own: "Zusatz1 Eigene"
+        user1_any: "Zusatz1 Alle"
+        user1_name: "Zusatz1 Name"
+        user2_own: "Zusatz2 Eigene"
+        user2_any: "Zusatz2 Alle"
+        user2_name: "Zusatz2 Name"
+        user3_own: "Zusatz3 Eigene"
+        user3_any: "Zusatz3 Alle"
+        user3_name: "Zusatz3 Name"
 <%- end -%>
 

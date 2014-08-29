@@ -99,7 +99,6 @@ module BootswatchRails
           ""
         ]
         lines << [
-          "",
           "resources :roles",
           "resources :assignments",
           "resources :abilities",

@@ -7,4 +7,5 @@ class CreateRoles < ActiveRecord::Migration
     end
 
     add_index :roles, :name, unique: true
+  end
 end
