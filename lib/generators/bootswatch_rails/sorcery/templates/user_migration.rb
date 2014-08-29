@@ -1,44 +1,44 @@
-class <%= migration_name(name).camelize %> < ActiveRecord::Migration
+class <%= migration_name.camelize %> < ActiveRecord::Migration
   def change
     create_table :<%= table_name %> do |t|
-      t.string :email, null: false
-      t.string :name
-      t.string :phone
-      t.text :comment
+      t.string   :email, null: false
+      t.string   :name
+      t.string   :phone
+      t.text     :comment
 <%- if has_picture? -%>
-      t.string :picture
+      t.string   :picture
 <%- end -%>
-      t.integer :theme, default: BootswatchRails::DEFAULT
-      t.boolean :active, default: true
-      t.boolean :sysadm, default: false
+      t.integer  :theme, default: BootswatchRails::DEFAULT
+      t.boolean  :active, default: true
+      t.boolean  :sysadm, default: false
 
-      t.string :crypted_password, null: false
-      t.string :salt, null: false
+      t.string   :crypted_password, null: false
+      t.string   :salt, null: false
 <%- if user_activation? -%>
-      t.string :activation_state, default: nil
-      t.string :activation_token, default: nil
+      t.string   :activation_state, default: nil
+      t.string   :activation_token, default: nil
       t.datetime :activation_token_expires_at, default: nil
 <%- end -%>
 <%- if reset_password? -%>
-      t.string :reset_password_token, default: nil
+      t.string   :reset_password_token, default: nil
       t.datetime :reset_password_token_expires_at, default: nil
       t.datetime :reset_password_email_sent_at, default: nil
 <%- end -%>
 <%- if remember_me? -%>
-      t.boolean :remember_me
-      t.string :remember_me_token, default: nil
+      t.boolean  :remember_me
+      t.string   :remember_me_token, default: nil
       t.datetime :remember_me_token_expires_at, default: nil
 <%- end -%>
 <%- if brute_force_protection? -%>
-      t.integer :failed_logins_count, default: 0
+      t.integer  :failed_logins_count, default: 0
       t.datetime :lock_expires_at, default: nil
-      t.string :unlock_token, default: nil
+      t.string   :unlock_token, default: nil
 <%- end -%>
 <%- if activity_logging? -%>
       t.datetime :last_login_at, default: nil
       t.datetime :last_logout_at, default: nil
       t.datetime :last_activity_at, default: nil
-      t.string :last_login_from_ip_address, default: nil
+      t.string   :last_login_from_ip_address, default: nil
 <%- end -%>
 
       t.timestamps

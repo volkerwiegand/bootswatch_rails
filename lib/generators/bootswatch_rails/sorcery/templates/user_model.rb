@@ -6,6 +6,10 @@ class <%= class_name %> < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true, on: :create
 
+  has_many :assignments
+  has_many :roles, through: :assignments
+  has_many :abilities, through: :roles
+
 <%- if has_picture? -%>
   mount_uploader :picture, PictureUploader
 

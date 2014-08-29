@@ -6,12 +6,10 @@ module BootswatchRails
       desc "Install authentication (with Sorcery) and (optional) authorization."
       argument :name, type: :string, default: "user",
                banner: "user model (default 'user')"
-      argument :role, type: :string, default: "role",
-               banner: "role model (set to nil to disable authorization)"
-      argument :ability, type: :string, default: "ability",
-               banner: "ability model (what users with roles can do)"
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave)'
+      class_option :authorization, type: :boolean, default: true,
+               desc: 'Add dynamic athorization on top of authentication'
       class_option :user_activation, type: :boolean, default: false,
                desc: 'User activation by email with optional success email'
       class_option :reset_password, type: :boolean, default: false,
@@ -34,16 +32,18 @@ module BootswatchRails
       
       def add_migrations
         migration_template "user_migration.rb", "db/migrate/create_#{table_name}.rb"
-        return if role.blank?
-        migration_template "role_migration.rb", "db/migrate/create_#{role.pluralize}.rb"
-        migration_template "ability_migration.rb", "db/migrate/create_#{ability.pluralize}.rb"
+        return unless options.authorization?
+        migration_template "role_migration.rb",       "db/migrate/create_roles.rb"
+        migration_template "assignment_migration.rb", "db/migrate/create_assignments.rb"
+        migration_template "ability_migration.rb",    "db/migrate/create_abilities.rb"
       end
 
       def add_models
         template "user_model.rb", "app/models/#{name}.rb"
-        return if role.blank?
-        # template "role_model.rb", "app/models/#{role}.rb"
-        # template "ability_model.rb", "app/models/#{ability}.rb"
+        return unless options.authorization?
+        template "role_model.rb",       "app/models/role.rb"
+        template "assignment_model.rb", "app/models/assignment.rb"
+        template "ability_model.rb",    "app/models/ability.rb"
       end
 
       def add_mailer
@@ -54,9 +54,10 @@ module BootswatchRails
 
       def add_controllers
         template "users_controller.rb", "app/controllers/#{table_name}_controller.rb"
-        return if role.blank?
-        # template "role_controller.rb", "app/controllers/#{role.pluralize}_controller.rb"
-        # template "ability_controller.rb", "app/controllers/#{ability.pluralize}_controller.rb"
+        return unless authorization?
+        # template "roles_controller.rb",       "app/controllers/roles_controller.rb"
+        # template "assignments_controller.rb", "app/controllers/assignment_controller.rb"
+        # template "abilities_controller.rb",   "app/controllers/abilities_controller.rb"
       end
 
       def add_views
@@ -65,7 +66,7 @@ module BootswatchRails
         views.each do |view|
           template "#{view}.html.erb", "app/views/#{table_name}/#{view}.html.erb"
         end
-        return if role.blank?
+        return unless options.authorization?
         # TODO
       end
 
@@ -99,10 +100,11 @@ module BootswatchRails
         ]
         lines << [
           "",
-          "resources :#{role.pluralize}",
-          "resources :#{ability.pluralize}",
+          "resources :roles",
+          "resources :assignments"
+          "resources :abilities",
           ""
-        ] if role.present?
+        ] if options.authorization?
         route lines.join("\n")
       end
 
@@ -134,6 +136,10 @@ module BootswatchRails
 
       def has_picture?
         options.picture?
+      end
+
+      def authorization?
+        options.authorization?
       end
 
       def user_activation?
@@ -185,26 +191,22 @@ module BootswatchRails
         options.layout
       end
 
-      def migration_name(obj)
-        "create_#{obj.pluralize}"
-      end
-
-      def member_migration
-        [ table_name, role.pluralize ].sort.join("_")
+      def migration_name
+        "create_#{table_name}"
       end
 
       def mailer_name
         "#{name}_mailer"
       end
 
-      def controller_name(obj)
-        "#{obj.pluralize}_controller"
+      def controller_name
+        "#{table_name}_controller"
       end
 
       def whitelist
         text = ":email, :name, :phone, :comment, :theme, " +
         ":active, :sysadm, :password, :password_confirmation"
-        text += ", :picture, :picture_cache" if has_picture?
+        text += ", :picture, :picture_cache" if options.picture?
       end
     end
   end

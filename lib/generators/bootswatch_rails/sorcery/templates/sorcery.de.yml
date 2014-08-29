@@ -34,11 +34,14 @@ de:
       <%= name %>:
         one: "Benutzer"
         other: "Benutzer"
-<%- if role.present? -%>
-      <%= role %>:
+<%- if authorization? -%>
+      role:
         one: "Rolle"
         other: "Rollen"
-      <%= ability %>:
+      assignment:
+        one: "Zuordnung"
+        other: "Zuordnungen"
+      ability:
         one: "Fähigkeit"
         other: Fähigkeiten"
 <%- end -%>
@@ -69,10 +72,13 @@ de:
         failed_logins_count: "Fehlversuche Anmeldung"
         lock_expires_at: "Gesperrt bis"
 <%- end -%>
-<%- if role.present? -%>
-      <%= role %>:
+<%- if authorization? -%>
+      role:
         name: "Bezeichnung"
-      <%= ability %>:
+      assignment:
+        <%= name %>: "Benutzer"
+        role: "Rolle"
+      ability:
         resource: "Tabelle"
         create: "Anlegen"
         read: "Lesen"
