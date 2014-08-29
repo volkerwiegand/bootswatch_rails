@@ -1,6 +1,7 @@
 class CreateAbilities < ActiveRecord::Migration
   def change
     create_table :abilities do |t|
+      t.belongs_to :role, index: true
       t.string :resource, null: false
       t.boolean :create_new, default: false
       t.boolean :read_own,   default: false
