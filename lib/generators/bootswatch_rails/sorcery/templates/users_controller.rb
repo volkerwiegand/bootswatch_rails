@@ -1,4 +1,4 @@
-class <%= controller_name(name).camelize %> < ApplicationController
+class <%= controller_name.camelize %> < ApplicationController
   force_ssl if: :ssl_configured?
   skip_before_filter :require_login, only: [:log_in, :access, :password, :reset, :change, :refresh, :log_out]
   before_action :set_<%= name %>, only: [:show, :edit, :update, :destroy]
