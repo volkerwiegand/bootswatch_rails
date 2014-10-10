@@ -29,7 +29,7 @@ module BootswatchRails
       class_option :layout, type: :string, default: 'centered',
                desc: 'Layout to be used for rendering login.html.erb'
       source_root File.expand_path("../templates", __FILE__)
-      
+
       def add_migrations
         migration_template "user_migration.rb", "db/migrate/create_#{table_name}.rb"
         return unless options.authorization?
@@ -46,6 +46,11 @@ module BootswatchRails
         template "ability_model.rb",    "app/models/ability.rb"
       end
 
+      def add_uploader
+        return unless options.picture?
+        template "picture_uploader.rb", "app/uploaders/picture_uploader.rb"
+      end
+
       def add_mailer
         return unless reset_password?
         template "user_mailer.rb", "app/mailers/#{mailer_name}.rb"
@@ -55,8 +60,9 @@ module BootswatchRails
       def add_controllers
         template "users_controller.rb", "app/controllers/#{table_name}_controller.rb"
         return unless authorization?
+        # TODO
         # template "roles_controller.rb",       "app/controllers/roles_controller.rb"
-        # template "assignments_controller.rb", "app/controllers/assignment_controller.rb"
+        # template "assignments_controller.rb", "app/controllers/assignments_controller.rb"
         # template "abilities_controller.rb",   "app/controllers/abilities_controller.rb"
       end
 
