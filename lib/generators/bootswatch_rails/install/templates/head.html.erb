@@ -4,6 +4,10 @@
 
   <title><%%= content_for?(:title) ? yield(:title) : app_name %></title>
 
+<%- if options.gmaps? -%>
+  <script src="<%= BootswatchRails::GMAPS_API_STATIC %>"></script>
+  <script src="<%= BootswatchRails::GMAPS_UTIL_MARKER %>"></script>
+<%- end -%>
 <%%- if content_for?(:head_common_pre) -%>
   <%%= yield(:head_common_pre) %>
 <%%- end -%>

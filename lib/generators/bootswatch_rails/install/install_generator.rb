@@ -4,8 +4,10 @@ module BootswatchRails
       desc "Setup application to use bootswatch.com"
       class_option :turbolinks, type: :boolean, default: false,
                desc: 'Activate turbolinks (off by default)'
+      class_option :gmaps, type: :boolean, default: false,
+               desc: 'Include Google Maps (requires gmaps4rails)'
       source_root File.expand_path("../templates", __FILE__)
-      
+
       def update_application_controller
         file = "app/controllers/application_controller.rb"
         inject_into_file file, "\n\n  private", after: /protect_from_forgery.*$/
@@ -25,17 +27,21 @@ module BootswatchRails
         ]
         inject_into_file file, lines.join("\n"), before: /^end$/
       end
-      
+
       def copy_directories
         directory "app", force: true
         directory "config"
         directory "lib", force: true
         template "head.html.erb", "app/views/layouts/_head.html.erb"
       end
-      
+
+      def add_gmaps
+        return unless options.gmaps?
+      end
+
       def remove_turbolinks
         return if options.turbolinks?
-        comment_lines "Gemfile", /gem 'turbolinks/
+        # comment_lines "Gemfile", /gem 'turbolinks/
         file = "app/assets/javascripts/application.js"
         gsub_file file, /^\/\/= require turbolinks\s/, ""
         file = "app/views/layouts/_head.html.erb"
