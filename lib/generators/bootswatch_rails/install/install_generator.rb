@@ -5,7 +5,7 @@ module BootswatchRails
       class_option :turbolinks, type: :boolean, default: false,
                desc: 'Activate turbolinks (off by default)'
       class_option :gmaps, type: :boolean, default: false,
-               desc: 'Include Google Maps (requires gmaps4rails)'
+               desc: 'Include Google Maps (requires gmaps4rails and underscore-rails)'
       source_root File.expand_path("../templates", __FILE__)
 
       def update_application_controller
@@ -32,11 +32,19 @@ module BootswatchRails
         directory "app", force: true
         directory "config"
         directory "lib", force: true
+      end
+
+      def setup_head
         template "head.html.erb", "app/views/layouts/_head.html.erb"
       end
 
       def add_gmaps
         return unless options.gmaps?
+        file = "app/assets/javascripts/application.js"
+        inject_into_file file, after: /require jquery_ujs.*$/ do
+          "\n//= require underscore" +
+          "\n//= require gmaps/google"
+        end
       end
 
       def remove_turbolinks
