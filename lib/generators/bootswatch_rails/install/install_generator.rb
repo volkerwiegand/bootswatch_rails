@@ -57,8 +57,7 @@ module BootswatchRails
             "",
             "//= require leaflet",
             "//= require leaflet.makimarkers",
-            "//= require leaflet.geodesic",
-            ""
+            "//= require leaflet.geodesic"
           ].join("\n")
         end
         file = "app/assets/stylesheets/application.css"
