@@ -53,8 +53,13 @@ module BootswatchRails
         return unless options.leaflet?
         file = "app/assets/javascripts/application.js"
         inject_into_file file, after: /require jquery_ujs.*$/ do
-          "\n//= require leaflet" +
-          "\n//= require leaflet.makimarkers"
+          [
+            "",
+            "//= require leaflet",
+            "//= require leaflet.makimarkers",
+            "//= require leaflet.geodesic",
+            ""
+          ].join("\n")
         end
         file = "app/assets/stylesheets/application.css"
         prepend_to_file file do
