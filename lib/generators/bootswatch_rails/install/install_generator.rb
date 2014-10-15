@@ -54,7 +54,7 @@ module BootswatchRails
         file = "app/assets/javascripts/application.js"
         inject_into_file file, after: /require jquery_ujs.*$/ do
           "\n//= require leaflet" +
-          "\n//= require Leaflet.makimarkers"
+          "\n//= require leaflet.makimarkers"
         end
         file = "app/assets/stylesheets/application.css"
         prepend_to_file file do
