@@ -11,7 +11,6 @@ rel: build
 	vim lib/bootswatch_rails/version.rb
 	git commit -a
 	sudo gem uninstall bootswatch_rails --all
-	rake build
 	rake release
 	sudo rake install
 

@@ -25,7 +25,7 @@
   <%%= f.input :active %>
   <%%= f.input :password %>
   <%%= f.input :password_confirmation %>
-  <%%- if current_<%= name %>.sysadmin and @<%= name %> != current_<%= name %> -%>
+  <%%- if current_<%= name %>.sysadm and @<%= name %> != current_<%= name %> -%>
     <%%= f.input :sysadm %>
   <%%- end -%>
 
