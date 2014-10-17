@@ -12,13 +12,12 @@ rel: build
 	git commit -a
 	sudo gem uninstall bootswatch_rails --all
 	rake release
-	sudo rake install
 
 install: build
 	git commit -a
 	sudo gem uninstall bootswatch_rails --all
-	rake build
 	sudo rake install
+	sudo rm -rf pkg
 
 build:
 	test -d cleditor && git add cleditor || true
