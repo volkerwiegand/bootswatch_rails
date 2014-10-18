@@ -6,8 +6,6 @@ module BootswatchRails
                desc: 'Activate turbolinks (off by default)'
       class_option :gmaps, type: :boolean, default: false,
                desc: 'Include Google Maps (requires gmaps4rails and underscore-rails)'
-      class_option :leaflet, type: :boolean, default: false,
-               desc: 'Include Leaflet JS (requires leaflet-rails and related gems)'
       source_root File.expand_path("../templates", __FILE__)
 
       def update_application_controller
@@ -46,31 +44,6 @@ module BootswatchRails
         inject_into_file file, after: /require jquery_ujs.*$/ do
           "\n//= require underscore" +
           "\n//= require gmaps/google"
-        end
-      end
-
-      def add_leaflet
-        return unless options.leaflet?
-        file = "app/assets/javascripts/application.js"
-        inject_into_file file, after: /require jquery_ujs.*$/ do
-          [
-            "",
-            "//= require leaflet",
-            "//= require leaflet.makimarkers",
-            "//= require leaflet.geodesic"
-          ].join("\n")
-        end
-        file = "app/assets/stylesheets/application.css"
-        prepend_to_file file do
-          [
-            "//= depend_on_asset \"layers.png\"",
-            "//= depend_on_asset \"layers-2x.png\"",
-            "",
-            ""
-          ].join("\n")
-        end
-        inject_into_file file, after: /require_tree \..*$/ do
-          "\n *= require leaflet"
         end
       end
 

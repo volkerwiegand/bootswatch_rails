@@ -81,13 +81,13 @@
   </tbody>
 </table>
 
-<%%- if current_<%= name %>.status.to_sym == :sysadm or @<%= name %> == current_<%= name %> -%>
+<%%- if current_<%= name %>.sysadm or @<%= name %> == current_<%= name %> -%>
   <%%= link_to t('actions.edit'), [:edit, @<%= name %>], class: 'btn btn-primary' %>
   <%%= link_to t('actions.back.index'), <%= table_name %>_path, class: 'btn btn-default' %>
 <%%- else -%>
   <%%= link_to t('actions.back.index'), <%= table_name %>_path, class: 'btn btn-primary' %>
 <%%- end -%>
-<%%- if current_<%= name %>.status.to_sym == :sysadm and @<%= name %> != current_<%= name %> -%>
+<%%- if current_<%= name %>.sysadm and @<%= name %> != current_<%= name %> -%>
   <%%= link_to t('actions.destroy'), @<%= name %>, method: :delete, data: { confirm: t('actions.confirm') }, class: 'btn btn-danger' %>
 <%%- end -%>
 

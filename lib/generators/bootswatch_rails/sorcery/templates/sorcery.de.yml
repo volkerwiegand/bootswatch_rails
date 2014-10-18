@@ -56,7 +56,7 @@ de:
 <%- end -%>
         theme: "Oberfläche"
         active: "Aktiv"
-        sysadm: "Admin"
+        sysadm: "SysAdmin"
         password: "Kennwort"
         password_confirmation: "Kennwort wiederholen"
 <%- if remember_me? -%>
