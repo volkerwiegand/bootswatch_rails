@@ -1,14 +1,14 @@
 en:
   navigation:
     toggle: "Toggle navigation"
-    
+
   headers:
     index: "Listing %{name}"
     show: "Showing %{name}"
     new: "Adding %{name}"
     edit: "Editing %{name}"
     destroy: "Deleting %{name}"
-    
+
   actions:
     title: "Action"
     create: "Add"
@@ -20,8 +20,14 @@ en:
       index: "Back to listing"
       show: "Back to showing"
     add: "Add %{name}"
-    
+
   results:
     created: "%{name} created."
     updated: "%{name} updated."
     deleted: "%{name} deleted."
+
+  activerecord:
+    attributes:
+      created_by: "Created"
+      updated_by: "Updated"
+

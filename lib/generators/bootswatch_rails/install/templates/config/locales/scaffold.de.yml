@@ -1,14 +1,14 @@
 de:
   navigation:
     toggle: "Navigation umschalten"
-    
+
   headers:
     index: "%{name} auflisten"
     show: "%{name} anzeigen"
     new: "%{name} hinzufügen"
     edit: "%{name} bearbeiten"
     destroy: "%{name} löschen"
-    
+
   actions:
     title: "Aktion"
     create: "Hinzufügen"
@@ -20,8 +20,14 @@ de:
       index: "Zurück zum Auflisten"
       show: "Zurück zum Anzeigen"
     add: "%{name} hinzufügen"
-    
+
   results:
     created: "%{name} wurde erstellt."
     updated: "%{name} wurde aktualisiert."
     deleted: "%{name} wurde gelöscht."
+
+  activerecord:
+    attributes:
+      created_by: "Angelegt"
+      updated_by: "Aktualisiert"
+
