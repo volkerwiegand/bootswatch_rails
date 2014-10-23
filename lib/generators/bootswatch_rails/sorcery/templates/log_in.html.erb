@@ -5,12 +5,12 @@
 
   <%%= f.input :email, autofocus: true %>
   <%%= f.input :password %>
-<%- if remember_me? -%>
+<%- if options.remember_me? -%>
   <%%= f.input :remember_me %>
 <%- end -%>
 
   <%%= f.button :submit, t('sorcery.submit'), class: 'btn btn-primary' %>
-<%- if reset_password? -%>
+<%- if options.reset_password? -%>
   <%%= link_to t('sorcery.reset.forgot'), password_<%= table_name %>_path, class: 'btn btn-default' %>
 <%- end -%>
 <%% end %>
