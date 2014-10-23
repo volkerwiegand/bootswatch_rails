@@ -132,7 +132,7 @@ module BootswatchRails
 
       def update_application_controller
         file = "app/controllers/application_controller.rb"
-        inject_into_class file, "ApplicationController", "  before_filter :require_login\n\n"
+        inject_into_class file, "ApplicationController", "  before_action :require_login\n\n"
         inject_into_file file, "\n\n  private", after: /protect_from_forgery.*$/
         lines = [
           "",
