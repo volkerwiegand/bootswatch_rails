@@ -56,7 +56,7 @@ class <%= controller_name.camelize %> < ApplicationController
   # GET /<%= table_name %>/log_in
   def log_in
     @<%= name %> = <%= class_name %>.new
-    render layout: '<%= layout %>'
+    render layout: '<%= options.layout %>'
   end
 
   # POST /<%= table_name %>/access
