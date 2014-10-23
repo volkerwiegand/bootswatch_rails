@@ -7,7 +7,7 @@ module BootswatchRails
       argument :name, type: :string,
                desc: "The resource to be updated"
       argument :user, type: :string, default: "user",
-               banner: "user model (default 'user')"
+               banner: "name of the user model"
       class_option :migration, type: :boolean, default: false,
                desc: 'Create a migration for added attributes'
       source_root File.expand_path('../templates', __FILE__)
