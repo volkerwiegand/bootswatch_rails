@@ -18,13 +18,19 @@
       <td><%%= t('activerecord.attributes.<%= name %>.comment') %></td>
       <td><%%= raw(@<%= name %>.comment) %></td>
     </tr>
-<%- if has_picture? -%>
-  <%%- if @<%= name %>.picture.present? -%>
+<%- if options.picture? -%>
+  <%%- if @<%= name %>.picture? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.picture') %></td>
-      <td><%%= image_tag(@<%= name %>.picture_url(:avatar)) %></td>
+      <td><%%= image_tag(<%= name %>.picture_url(:avatar).to_s) %></td>
     </tr>
   <%%- end -%>
+<%- end -%>
+<%- if options.gravatar? -%>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.gravatar') %></td>
+      <td><%%= image_tag(gravatar_url(<%= name %>, 300)) %></td>
+    </tr>
 <%- end -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.theme') %></td>
@@ -38,7 +44,7 @@
       <td><%%= t('activerecord.attributes.<%= name %>.sysadm') %></td>
       <td><%%= @<%= name %>.sysadm ? t('simple_form.yes') : t('simple_form.no') %></td>
     </tr>
-<%- if activity_logging? -%>
+<%- if options.activity_logging? -%>
   <%%- if @<%= name %>.last_login_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_login_at') %></td>
@@ -50,13 +56,13 @@
     </tr>
   <%%- end -%>
 <%- end -%>
-<%- if brute_force_protection? -%>
+<%- if options.brute_force_protection? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.failed_logins_count') %></td>
       <td><%%= @<%= name %>.failed_logins_count %></td>
     </tr>
 <%- end -%>
-<%- if activity_logging? -%>
+<%- if options.activity_logging? -%>
   <%%- if @<%= name %>.last_logout_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.last_logout_at') %></td>
@@ -70,7 +76,7 @@
     </tr>
   <%%- end -%>
 <%- end -%>
-<%- if brute_force_protection? -%>
+<%- if options.brute_force_protection? -%>
   <%%- if @<%= name %>.lock_expires_at.present? -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.lock_expires_at') %></td>

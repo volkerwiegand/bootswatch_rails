@@ -9,25 +9,25 @@ Rails.application.config.sorcery.configure do |config|
   # config.not_authenticated_action = :not_authenticated
   # config.save_return_to_url = true
   # config.cookie_domain = nil
-<%- if session_timeout? -%>
+<%- if options.session_timeout? -%>
 
   # -- session_timeout --
   # config.session_timeout = 3600
   # config.session_timeout_from_last_action = false
 <%- end -%>
-<%- if http_basic_auth? -%>
+<%- if options.http_basic_auth? -%>
 
   # -- http_basic_auth --
   # config.controller_to_realm_map = { "application" => "Application" }
 <%- end -%>
-<%- if activity_logging? -%>
+<%- if options.activity_logging? -%>
 
   # -- activity_logging --
   # config.register_login_time = true
   # config.register_logout_time = true
   # config.register_last_activity_time = true
 <%- end -%>
-<%- if external? -%>
+<%- if options.external? -%>
 
   # -- external --
   # config.external_providers = []
@@ -49,7 +49,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.custom_encryption_provider = nil
     # user.encryption_algorithm = :bcrypt
     # user.subclasses_inherit_config = false
-<%- if user_activation? -%>
+<%- if options.user_activation? -%>
 
     # -- user_activation --
     # user.activation_state_attribute_name = :activation_state
@@ -62,7 +62,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.activation_success_email_method_name = :activation_success_email
     # user.prevent_non_active_users_to_login = true
 <%- end -%>
-<%- if reset_password? -%>
+<%- if options.reset_password? -%>
 
     # -- reset_password --
     # user.reset_password_token_attribute_name = :reset_password_token
@@ -74,13 +74,13 @@ Rails.application.config.sorcery.configure do |config|
     # user.reset_password_expiration_period = nil
     # user.reset_password_time_between_emails = 300
 <%- end -%>
-<%- if remember_me? -%>
+<%- if options.remember_me? -%>
 
     # -- remember_me --
     # user.remember_me_httponly = true
     # user.remember_me_for = 604800
 <%- end -%>
-<%- if brute_force_protection? -%>
+<%- if options.brute_force_protection? -%>
 
     # -- brute_force_protection --
     # user.failed_logins_count_attribute_name = :failed_logins_count
@@ -92,7 +92,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.unlock_token_mailer_disabled = false
     # user.unlock_token_mailer = nil
 <%- end -%>
-<%- if activity_logging? -%>
+<%- if options.activity_logging? -%>
 
     # -- activity_logging --
     # user.last_login_at_attribute_name = :last_login_at
@@ -100,7 +100,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.last_activity_at_attribute_name = :last_activity_at
     # user.activity_timeout = 600
 <%- end -%>
-<%- if external? -%>
+<%- if options.external? -%>
 
     # -- external --
     # user.authentications_class = nil

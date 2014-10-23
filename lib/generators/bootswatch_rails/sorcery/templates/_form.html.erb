@@ -5,7 +5,7 @@
   <%%= f.input :name %>
   <%%= f.input :phone %>
   <%%= f.input :comment %>
-<%- if has_picture? -%>
+<%- if options.picture? -%>
   <%%= f.input :picture %>
   <%%= f.input :picture_cache, as: :hidden %>
   <%%- if @<%= name %>.picture? -%>

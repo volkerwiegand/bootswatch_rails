@@ -6,7 +6,7 @@ de:
     sign_up: "Benutzerkonto anlegen"
     header: "Login für interne Benutzer"
     submit: "Login"
-<%- if reset_password? -%>
+<%- if options.reset_password? -%>
     reset:
       forgot: "Kennwort vergessen?"
       header: "Kennwort anfordern"
@@ -34,7 +34,7 @@ de:
       <%= name %>:
         one: "Benutzer"
         other: "Benutzer"
-<%- if authorization? -%>
+<%- if options.authorization? -%>
       role:
         one: "Rolle"
         other: "Rollen"
@@ -51,24 +51,27 @@ de:
         name: "Name"
         phone: "Telefon"
         comment: "Bemerkung"
-<%- if has_picture? -%>
+<%- if options.picture? -%>
         picture: "Bild"
+<%- end -%>
+<%- if options.gravatar? -%>
+        gravatar: "Gravatar"
 <%- end -%>
         theme: "Oberfläche"
         active: "Aktiv"
         sysadm: "SysAdmin"
         password: "Kennwort"
         password_confirmation: "Kennwort wiederholen"
-<%- if remember_me? -%>
+<%- if options.remember_me? -%>
         remember_me: "Angemeldet bleiben"
 <%- end -%>
-<%- if activity_logging? -%>
+<%- if options.activity_logging? -%>
         last_login_at: "Letzte Anmeldung"
         last_logout_at: "Letzte Abmeldung"
         last_activity_at: "Letzte Aktivität"
         last_login_from_ip_address: "Letzte IP-Adresse"
 <%- end -%>
-<%- if brute_force_protection? -%>
+<%- if options.brute_force_protection? -%>
         failed_logins_count: "Fehlversuche Anmeldung"
         lock_expires_at: "Gesperrt bis"
 <%- end -%>

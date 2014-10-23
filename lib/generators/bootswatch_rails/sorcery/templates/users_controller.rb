@@ -63,7 +63,7 @@ class <%= controller_name.camelize %> < ApplicationController
   def access
     @<%= name %> = <%= class_name %>.find_by email: params[:<%= name %>][:email]
     if @<%= name %>.present? and @<%= name %>.active
-<%- if remember_me? -%>
+<%- if options.remember_me? -%>
       @<%= name %> = login(params[:<%= name %>][:email], params[:<%= name %>][:password], params[:<%= name %>][:remember_me])
 <%- else -%>
       @<%= name %> = login(params[:<%= name %>][:email], params[:<%= name %>][:password])
@@ -77,12 +77,12 @@ class <%= controller_name.camelize %> < ApplicationController
       redirect_to log_in_users_path, alert: t('sorcery.failed')
     end
   end
-<%- if reset_password? -%>
+<%- if options.reset_password? -%>
 
   # GET /<%= table_name %>/password
   def password
     @<%= name %> = <%= class_name %>.new
-    render layout: '<%= layout %>'
+    render layout: '<%= options.layout %>'
   end
 
   # POST /<%= table_name %>/reset
@@ -104,7 +104,7 @@ class <%= controller_name.camelize %> < ApplicationController
       not_authenticated
       return
     end
-    render layout: '<%= layout %>'
+    render layout: '<%= options.layout %>'
   end
 
   # PATCH/PUT /<%= table_name %>/token/refresh

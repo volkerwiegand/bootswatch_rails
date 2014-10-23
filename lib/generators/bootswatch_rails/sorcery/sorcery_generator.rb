@@ -5,9 +5,11 @@ module BootswatchRails
     class SorceryGenerator < ActiveRecord::Generators::Base
       desc "Install authentication (with Sorcery) and (optional) authorization."
       argument :name, type: :string, default: "user",
-               banner: "user model (default 'user')"
+               banner: "name of the user model"
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave)'
+      class_option :gravatar, type: :boolean, default: false,
+               desc: 'Add Gravatar image to user (uses email)'
       class_option :authorization, type: :boolean, default: true,
                desc: 'Add dynamic athorization on top of authentication'
       class_option :user_activation, type: :boolean, default: false,
@@ -51,15 +53,20 @@ module BootswatchRails
         template "picture_uploader.rb", "app/uploaders/picture_uploader.rb"
       end
 
+      def add_gravatar
+        return unless options.gravatar?
+        template "gravatar_helper.rb", "app/helpers/gravatar_helper.rb"
+      end
+
       def add_mailer
-        return unless reset_password?
+        return unless options.reset_password?
         template "user_mailer.rb", "app/mailers/#{mailer_name}.rb"
         template "reset_password_email.html.erb", "app/views/#{mailer_name}/reset_password_email.html.erb"
       end
 
       def add_controllers
         template "users_controller.rb", "app/controllers/#{table_name}_controller.rb"
-        return unless authorization?
+        return unless options.authorization?
         # TODO
         # template "roles_controller.rb",       "app/controllers/roles_controller.rb"
         # template "assignments_controller.rb", "app/controllers/assignments_controller.rb"
@@ -87,7 +94,7 @@ module BootswatchRails
         lines << [
           "      get   'password'",
           "      post  'reset'"
-        ] if reset_password?
+        ] if options.reset_password?
         lines << [
           "    end"
         ]
@@ -97,7 +104,7 @@ module BootswatchRails
           "      patch 'refresh'",
           "      put   'refresh'",
           "    end"
-        ] if reset_password?
+        ] if options.reset_password?
         lines << [
           "  end",
           "  get '/login'  => '#{table_name}#log_in',  as: :login,  format: false",
@@ -139,61 +146,17 @@ module BootswatchRails
 
       protected
 
-      def has_picture?
-        options.picture?
-      end
-
-      def authorization?
-        options.authorization?
-      end
-
-      def user_activation?
-        options.user_activation?
-      end
-
-      def reset_password?
-        options.reset_password?
-      end
-
-      def remember_me?
-        options.remember_me?
-      end
-
-      def session_timeout?
-        options.session_timeout?
-      end
-
-      def brute_force_protection?
-        options.brute_force_protection?
-      end
-
-      def http_basic_auth?
-        options.http_basic_auth?
-      end
-
-      def activity_logging?
-        options.activity_logging?
-      end
-
-      def external?
-        options.external?
-      end
-
       def submodules
         modules = []
-        modules << ":user_activation"        if user_activation?
-        modules << ":reset_password"         if reset_password?
-        modules << ":remember_me"            if remember_me?
-        modules << ":session_timeout"        if session_timeout?
-        modules << ":brute_force_protection" if brute_force_protection?
-        modules << ":http_basic_auth"        if http_basic_auth?
-        modules << ":activity_logging"       if activity_logging?
-        modules << ":external"               if external?
+        modules << ":user_activation"        if options.user_activation?
+        modules << ":reset_password"         if options.reset_password?
+        modules << ":remember_me"            if options.remember_me?
+        modules << ":session_timeout"        if options.session_timeout?
+        modules << ":brute_force_protection" if options.brute_force_protection?
+        modules << ":http_basic_auth"        if options.http_basic_auth?
+        modules << ":activity_logging"       if options.activity_logging?
+        modules << ":external"               if options.external?
         modules.join(', ')
-      end
-
-      def layout
-        options.layout
       end
 
       def migration_name

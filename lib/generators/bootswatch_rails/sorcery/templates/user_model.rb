@@ -10,7 +10,7 @@ class <%= class_name %> < ActiveRecord::Base
   has_many :roles, through: :assignments
   has_many :abilities, through: :roles
 
-<%- if has_picture? -%>
+<%- if options.picture? -%>
   mount_uploader :picture, PictureUploader
 
 <%- end -%>
