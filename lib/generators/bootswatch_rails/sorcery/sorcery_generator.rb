@@ -175,6 +175,7 @@ module BootswatchRails
         text = ":email, :name, :phone, :comment, :theme, " +
         ":active, :sysadm, :password, :password_confirmation"
         text += ", :picture, :picture_cache" if options.picture?
+        text
       end
     end
   end
