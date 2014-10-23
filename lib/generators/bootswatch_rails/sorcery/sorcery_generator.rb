@@ -75,7 +75,7 @@ module BootswatchRails
 
       def add_views
         views  = %w[edit _form index log_in new show]
-        views += %w[password change] if reset_password?
+        views += %w[password change] if options.reset_password?
         views.each do |view|
           template "#{view}.html.erb", "app/views/#{table_name}/#{view}.html.erb"
         end
