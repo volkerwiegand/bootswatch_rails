@@ -127,7 +127,7 @@ class <%= controller_name.camelize %> < ApplicationController
   # DELETE /<%= table_name %>/1
   # DELETE /<%= table_name %>/1.json
   def destroy
-    if @<%= name %> == current_<%= name %> or current_<%= name %>.sysadm
+    if @<%= name %> == current_<%= name %> or !current_<%= name %>.sysadm
       redirect_to root_path, alert: t('sorcery.forbidden')
       return
     end
