@@ -8,14 +8,14 @@ module BootswatchRails
                desc: "The resource to be updated"
       argument :user, type: :string, default: "user",
                banner: "name of the user model"
-      class_option :helper, type: :boolean, default: false,
-               banner: "create helper for view shortcuts"
+      class_option :init, type: :boolean, default: false,
+               banner: "create helper for view helpers"
       class_option :migration, type: :boolean, default: false,
                desc: 'Create a migration for added attributes'
       source_root File.expand_path('../templates', __FILE__)
       
       def add_helper
-        return unless options.helper?
+        return unless options.init?
         template "created_by_helper.rb", "app/helpers/created_by_helper.rb"
       end
       
