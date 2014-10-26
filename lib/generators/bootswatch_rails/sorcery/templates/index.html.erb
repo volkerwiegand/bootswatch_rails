@@ -3,8 +3,7 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th><%%= t('activerecord.attributes.<%= name %>.name') %>
-          <br>
+      <th><%%= t('activerecord.attributes.<%= name %>.name') %> /
           <%%= t('activerecord.attributes.<%= name %>.phone') %></th>
       <th><%%= t('activerecord.attributes.<%= name %>.comment') %></th>
 <%- if options.picture? -%>
@@ -13,9 +12,7 @@
 <%- if options.gravatar? -%>
       <th><%%= t('activerecord.attributes.<%= name %>.gravatar') %></th>
 <%- end -%>
-      <th><%%= t('activerecord.attributes.<%= name %>.active') %>
-          <br>
-          <%%= t('activerecord.attributes.<%= name %>.sysadm') %></th>
+      <th><%%= t('activerecord.attributes.<%= name %>.active') %></th>
       <th class="index-actions"><%%= t('actions.title') %></th>
     </tr>
   </thead>
@@ -43,8 +40,9 @@
 <%- end -%>
         <td>
           <%%= <%= name %>.active ? t('simple_form.yes') : t('simple_form.no') %>
-          <br>
-          <%%= <%= name %>.sysadm ? t('simple_form.yes') : t('simple_form.no') %>
+        <%%- if <%= name %>.sysadm -%>
+          (<%%= t('activerecord.attributes.<%= name %>.sysadm') %>)
+        <%%- end -%>
         </td>
         <td class="index-actions">
           <%%= link_to t('actions.show'), <%= name %>, class: 'btn btn-default btn-xs' %>
