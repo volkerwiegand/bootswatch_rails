@@ -10,7 +10,7 @@ module BootswatchRails
                desc: 'Add picture to user (needs carrierwave)'
       class_option :gravatar, type: :boolean, default: false,
                desc: 'Add Gravatar image to user (uses email)'
-      class_option :authorization, type: :boolean, default: true,
+      class_option :authorization, type: :boolean, default: false,
                desc: 'Add dynamic athorization on top of authentication'
       class_option :user_activation, type: :boolean, default: false,
                desc: 'User activation by email with optional success email'
@@ -138,6 +138,10 @@ module BootswatchRails
           "",
           "  def not_authenticated",
           "    redirect_to login_path, alert: t('sorcery.required')",
+          "  end",
+          "",
+          "  def current_sysadm?",
+          "    current_user and current_user.sysadm",
           "  end",
           ""
         ]
