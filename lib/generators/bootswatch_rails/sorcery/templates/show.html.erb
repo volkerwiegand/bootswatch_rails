@@ -1,4 +1,5 @@
-<h2><%%= t('headers.show', name: t('activerecord.models.<%= name %>.one')) %></h2>
+<%%- page_title @<%= name %>.name -%>
+<h2><%%= @<%= name %>.name %></h2>
 
 <table class="table table-striped table-hover">
   <tbody>
