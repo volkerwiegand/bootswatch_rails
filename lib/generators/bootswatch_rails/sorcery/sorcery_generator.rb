@@ -141,8 +141,9 @@ module BootswatchRails
           "  end",
           "",
           "  def current_sysadm?",
-          "    current_user and current_user.sysadm",
+          "    current_#{name}.present? and current_#{name}.sysadm",
           "  end",
+          "  helper_method :current_sysadm?",
           ""
         ]
         inject_into_file file, lines.join("\n"), before: /^end$/
