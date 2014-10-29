@@ -15,6 +15,7 @@ en:
     show: "Show"
     edit: "Edit"
     destroy: "Delete"
+    cancel: "Cancel"
     confirm: "Are you sure?"
     back:
       index: "Back to listing"

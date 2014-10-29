@@ -5,16 +5,17 @@ de:
   headers:
     index: "%{name} auflisten"
     show: "%{name} anzeigen"
-    new: "%{name} hinzufügen"
+    new: "%{name} anlegen"
     edit: "%{name} bearbeiten"
     destroy: "%{name} löschen"
 
   actions:
     title: "Aktion"
-    create: "Hinzufügen"
+    create: "Anlegen"
     show: "Anzeigen"
     edit: "Bearbeiten"
     destroy: "Löschen"
+    cancel: "Abbrechen"
     confirm: "Sind Sie sicher?"
     back:
       index: "Zurück zum Auflisten"
@@ -22,7 +23,7 @@ de:
     add: "%{name} hinzufügen"
 
   results:
-    created: "%{name} wurde erstellt."
+    created: "%{name} wurde angelegt."
     updated: "%{name} wurde aktualisiert."
     deleted: "%{name} wurde gelöscht."
 

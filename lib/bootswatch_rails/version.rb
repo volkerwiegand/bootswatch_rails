@@ -1,8 +1,8 @@
 module BootswatchRails
   BOOTSTRAP = "3.2.0"
   FONT_AWESOME = "4.2.0"
-  VERSION = "3.2.0.41"
+  VERSION = "3.2.0.42"
 
   THEMES = [:amelia, :cerulean, :cosmo, :custom, :cyborg, :darkly, :flatly, :journal, :lumen, :paper, :readable, :sandstone, :simplex, :slate, :spacelab, :superhero, :united, :yeti]
-  DEFAULT = 1
+  DEFAULT = 2
 end
