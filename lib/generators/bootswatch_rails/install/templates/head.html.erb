@@ -4,17 +4,25 @@
 
   <title><%%= content_for?(:title) ? yield(:title) : app_name %></title>
 
-  <%%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%%= stylesheet_link_tag 'application', media: 'all'<%= turbolinks %> %>
+
 <%%- if Rails.env.production? -%>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/<%= BootswatchRails::BOOTSTRAP %>/<%%= current_theme %>/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/<%= BootswatchRails::FONT_AWESOME %>/css/font-awesome.min.css">
-  <%%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%%= javascript_include_tag 'application'<%= turbolinks %> %>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/<%= BootswatchRails::BOOTSTRAP %>/js/bootstrap.min.js"></script>
 <%%- else -%>
-  <%%= stylesheet_link_tag current_theme, 'data-turbolinks-track' => true %>
-  <%%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%%= javascript_include_tag 'bootstrap', 'data-turbolinks-track' => true %>
+  <%%= stylesheet_link_tag current_theme<%= turbolinks %> %>
 <%%- end -%>
+
+<%- if options.cdn != "none" -%>
+  <%%= jquery_include_tag :<%= options.cdn %><%= turbolinks %> %>
+  <%- if options.ui? -%>
+  <%%= jquery_ui_include_tag :<%= options.cdn %><%= turbolinks %> %>
+  <%- end -%>
+<%- end -%>
+  <%%= javascript_include_tag 'application'<%= turbolinks %> %>
+  <%%= javascript_include_tag 'bootstrap'<%= turbolinks %> %>
 
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
