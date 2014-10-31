@@ -6,6 +6,10 @@ class <%= class_name %> < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true, on: :create
 
+  default_scope { order(:name) }
+  scope :active, -> { where(active: true) }
+  scope :sysadms, -> { where(sysadm: true) }
+  
 <%- if options.authorization? -%>
   has_many :assignments
   has_many :roles, through: :assignments
