@@ -22,7 +22,9 @@
   <%- end -%>
 <%- end -%>
   <%%= javascript_include_tag 'application'<%= turbolinks %> %>
-  <%%= javascript_include_tag 'bootstrap'<%= turbolinks %> %>
+<%- if options.cdn != "none" -%>
+  <%%= bootstrap_js_include_tag<%= turbolinks %> %>
+<%- end -%>
 
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
