@@ -33,7 +33,9 @@ module BootswatchRails
       end
 
       def copy_application_js
-        template "application.js", "app/assets/javascripts/application.js"
+        file = "app/assets/javascripts/application.js"
+        remove_file file
+        template "application.js", file
       end
 
       def setup_assets_precompile
