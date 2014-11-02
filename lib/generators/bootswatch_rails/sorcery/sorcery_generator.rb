@@ -141,7 +141,7 @@ module BootswatchRails
           "  end",
           "",
           "  def current_sysadm?",
-          "    current_#{name}.present? and current_#{name}.sysadm",
+          "    logged_in? and current_#{name}.sysadm",
           "  end",
           "  helper_method :current_sysadm?",
           ""

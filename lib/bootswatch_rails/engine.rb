@@ -11,7 +11,8 @@ module BootswatchRails
       stylesheet_link_tag(bootswatch_url)
     end
 
-    def fontawesome_link_tag
+    def fontawesome_link_tag(options = {})
+      return '' if !options.delete(:force) and OFFLINE
       fontawesome_url = "//maxcdn.bootstrapcdn.com/font-awesome/<%= BootswatchRails::FONT_AWESOME %>/css/font-awesome.min.css"
       stylesheet_link_tag(fontawesome_url)
     end
