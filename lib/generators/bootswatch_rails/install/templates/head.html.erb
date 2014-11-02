@@ -7,7 +7,6 @@
   <%%= stylesheet_link_tag 'application', media: 'all'<%= turbolinks %> %>
 <%- if options.cdn != "none" -%>
   <%%= bootswatch_link_tag current_theme %>
-  <%%= fontawesome_link_tag %>
 <%- else -%>
   <%%= stylesheet_link_tag current_theme<%= turbolinks %> %>
 <%- end -%>
