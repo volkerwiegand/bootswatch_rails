@@ -32,6 +32,20 @@ module BootswatchRails
         inject_into_file file, lines.join("\n"), before: /^end$/
       end
 
+      def copy_application_js
+        template "application.js", "app/assets/javascripts/application.js"
+      end
+
+      def setup_assets_precompile
+        return unless options.cdn?
+        initializer "bootswatch_assets.rb" do
+          assets  = "jquery.js"
+          assets += " jquery-ui.js" if options.ui?
+          assets += " bootstrap.js"
+          "Rails.application.config.assets.precompile += %w( #{assets} )"
+        end
+      end
+
       def copy_directories
         directory "app", force: true
         directory "config"
@@ -40,21 +54,6 @@ module BootswatchRails
 
       def setup_head
         template "head.html.erb", "app/views/layouts/_head.html.erb"
-      end
-
-      def update_application_html
-        appjs = "app/assets/javascripts/application.js"
-        unless options.turbolinks?
-          gsub_file appjs, /^\/\/= require turbolinks\s/, ""
-        end
-        if options.ui? and !options.cdn?
-          inject_into_file appjs, after: /= require jquery$/ do
-            "\n//= require jquery-ui"
-          end
-        end
-        if options.cdn?
-          gsub_file appjs, /^\/\/= require jquery\s/, ""
-        end
       end
 
       protected

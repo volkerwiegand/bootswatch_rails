@@ -48,7 +48,7 @@ done
 _engine="lib/bootswatch_rails/engine.rb"
 if [ -s $_engine ] ; then
 	rm -f /tmp/engine.tmp
-	sed -e "/assets.precompile/s/=.*/= %w(bootstrap.js $_themes_css)/" $_engine >/tmp/engine.tmp
+	sed -e "/assets.precompile/s/=.*/= %w($_themes_css)/" $_engine >/tmp/engine.tmp
 	if cmp -s /tmp/engine.tmp $_engine ; then
 		rm -f /tmp/engine.tmp
 	else

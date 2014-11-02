@@ -5,16 +5,12 @@
   <title><%%= content_for?(:title) ? yield(:title) : app_name %></title>
 
   <%%= stylesheet_link_tag 'application', media: 'all'<%= turbolinks %> %>
-
-<%%- if Rails.env.production? -%>
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/<%= BootswatchRails::BOOTSTRAP %>/<%%= current_theme %>/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/<%= BootswatchRails::FONT_AWESOME %>/css/font-awesome.min.css">
-  <%%= javascript_include_tag 'application'<%= turbolinks %> %>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/<%= BootswatchRails::BOOTSTRAP %>/js/bootstrap.min.js"></script>
+<%- if options.cdn != "none" -%>
+  <%%= bootswatch_link_tag current_theme<%= turbolinks %> %>
+  <%%= fontawesome_link_tag<%= turbolinks %> %>
 <%%- else -%>
   <%%= stylesheet_link_tag current_theme<%= turbolinks %> %>
 <%%- end -%>
-
 <%- if options.cdn != "none" -%>
   <%%= jquery_include_tag :<%= options.cdn %><%= turbolinks %> %>
   <%- if options.ui? -%>
@@ -23,7 +19,7 @@
 <%- end -%>
   <%%= javascript_include_tag 'application'<%= turbolinks %> %>
 <%- if options.cdn != "none" -%>
-  <%%= bootstrap_js_include_tag<%= turbolinks %> %>
+  <%%= bootstrap_include_tag<%= turbolinks %> %>
 <%- end -%>
 
   <!--[if lt IE 9]>
