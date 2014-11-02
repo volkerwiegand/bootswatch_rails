@@ -8,9 +8,9 @@
 <%- if options.cdn != "none" -%>
   <%%= bootswatch_link_tag current_theme<%= turbolinks %> %>
   <%%= fontawesome_link_tag<%= turbolinks %> %>
-<%%- else -%>
+<%- else -%>
   <%%= stylesheet_link_tag current_theme<%= turbolinks %> %>
-<%%- end -%>
+<%- end -%>
 <%- if options.cdn != "none" -%>
   <%%= jquery_include_tag :<%= options.cdn %><%= turbolinks %> %>
   <%- if options.ui? -%>
