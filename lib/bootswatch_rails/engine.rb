@@ -4,7 +4,7 @@ module BootswatchRails
   module ActionViewExtensions
     OFFLINE = (Rails.env.development? or Rails.env.test?)
 
-    def bootswatch_link_tag(theme = nil)
+    def bootswatch_link_tag(theme = nil, options = {})
       theme ||= BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s
       return stylesheet_link_tag(theme) if !options.delete(:force) and OFFLINE
       bootswatch_url = "//maxcdn.bootstrapcdn.com/bootswatch/<%= BootswatchRails::BOOTSTRAP %>/#{theme}/bootstrap.min.css"
