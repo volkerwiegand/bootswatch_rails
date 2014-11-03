@@ -7,7 +7,7 @@ module BootswatchRails
     def bootswatch_link_tag(theme = nil, options = {})
       theme ||= BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s
       return stylesheet_link_tag(theme) if !options.delete(:force) and OFFLINE
-      bootswatch_url = "//maxcdn.bootstrapcdn.com/bootswatch/#{BootswatchRails::BOOTSTRAP}/#{theme}/bootstrap.min.css"
+      bootswatch_url = "//maxcdn.bootstrapcdn.com/bootswatch/#{BootswatchRails::BOOTSWATCH}/#{theme}/bootstrap.min.css"
       fontawesome_url = "//maxcdn.bootstrapcdn.com/font-awesome/#{BootswatchRails::FONT_AWESOME}/css/font-awesome.min.css"
       stylesheet_link_tag(bootswatch_url) + "\n  " + stylesheet_link_tag(fontawesome_url)
     end
