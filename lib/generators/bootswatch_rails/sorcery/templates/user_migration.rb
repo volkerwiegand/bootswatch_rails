@@ -13,8 +13,8 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
       t.boolean  :sysadm, default: false
 <%- if added_fields.any? -%>
 
-  <%- added_fields.each do |f| -%>
-      t.<%= f.type %>  :<%= f.name %>
+  <%- added_fields.each do |field| -%>
+      t.<%= field[1] %>  :<%= field[0] %>
   <%- end -%>
 <%- end -%>
 
@@ -53,11 +53,11 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
     add_index :<%= table_name %>, :email, unique: true
     add_index :<%= table_name %>, :sysadm
 <%- if added_fields.any? -%>
-  <%- added_fields.each do |f| -%>
-    <%- if f.index == "uniq" -%>
-    add_index :<%= table_name %>, :<%= f.name %>, unique: true
-    <%- elsif f.index == "index" -%>
-    add_index :<%= table_name %>, :<%= f.name %>
+  <%- added_fields.each do |field| -%>
+    <%- if field[2] == "uniq" -%>
+    add_index :<%= table_name %>, :<%= field[0] %>, unique: true
+    <%- elsif field[2] == "index" -%>
+    add_index :<%= table_name %>, :<%= field[0] %>
     <%- end -%>
   <%- end -%>
 <%- end -%>

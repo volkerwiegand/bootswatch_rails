@@ -29,7 +29,7 @@
     <%%= f.input :sysadm %>
   <%%- end -%>
 <%- added_fields.each do |field| -%>
-    <%%= f.input :<%= field.name %> %>
+    <%%= f.input :<%= field[0] %> %>
 <%- end -%>
 
   <%%= f.button :submit, class: 'btn btn-primary' %>

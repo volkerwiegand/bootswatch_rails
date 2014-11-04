@@ -15,7 +15,7 @@
 <%- end -%>
       <th><%%= t('activerecord.attributes.<%= name %>.active') %></th>
 <%- added_fields.each do |field| -%>
-      <th><%%= t('activerecord.attributes.<%= name %>.<%= field.name %>') %></th>
+      <th><%%= t('activerecord.attributes.<%= name %>.<%= field[0] %>') %></th>
 <%- end -%>
       <th class="index-actions"><%%= t('actions.title') %></th>
     </tr>
@@ -50,7 +50,7 @@
         </td>
 <%- added_fields.each do |field| -%>
         <td>
-          <%%= <%= name %>.<%= field.name %> %>
+          <%%= <%= name %>.<%= field[0] %> %>
         </td>
 <%- end -%>
         <td class="index-actions">

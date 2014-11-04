@@ -47,8 +47,8 @@
     </tr>
 <%- added_fields.each do |field| -%>
     <tr>
-      <td><%%= t('activerecord.attributes.<%= name %>.<%= field.name %>') %></td>
-      <td><%%= @<%= name %>.<%= field.name %> %></td>
+      <td><%%= t('activerecord.attributes.<%= name %>.<%= field[0] %>') %></td>
+      <td><%%= @<%= name %>.<%= field[0] %> %></td>
     </tr>
 <%- end -%>
 <%- if options.activity_logging? -%>
