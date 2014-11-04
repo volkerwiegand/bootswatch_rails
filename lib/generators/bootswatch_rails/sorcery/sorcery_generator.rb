@@ -12,7 +12,7 @@ module BootswatchRails
                desc: 'Add Gravatar image to user (uses email)'
       class_option :authority, type: :boolean, default: false,
                desc: 'Add athorization (requires authority gem)'
-      class_option :fields, type: :array, banner: "FIELD[:TYPE][:INDEX] ...",
+      class_option :add_attr, type: :array, banner: "FIELD[:TYPE][:INDEX] ...",
                desc: 'Setup additional attributes for user model'
       class_option :user_activation, type: :boolean, default: false,
                desc: 'User activation by email with optional success email'
@@ -133,7 +133,7 @@ module BootswatchRails
       protected
 
       def added_fields
-        list = options.fields || []
+        list = options.add_attr || []
         array = []
         list.each do |entry|
           name, type, index = entry.split(':')
