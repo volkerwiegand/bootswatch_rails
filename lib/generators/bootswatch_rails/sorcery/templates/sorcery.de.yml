@@ -34,17 +34,7 @@ de:
       <%= name %>:
         one: "Benutzer"
         other: "Benutzer"
-<%- if options.authorization? -%>
-      role:
-        one: "Rolle"
-        other: "Rollen"
-      assignment:
-        one: "Rollenzuordnung"
-        other: "Rollenzuordnungen"
-      ability:
-        one: "Fähigkeit"
-        other: Fähigkeiten"
-<%- end -%>
+        new: "Neuer Benutzer"
     attributes:
       <%= name %>:
         email: "E-Mail"
@@ -74,30 +64,5 @@ de:
 <%- if options.brute_force_protection? -%>
         failed_logins_count: "Fehlversuche Anmeldung"
         lock_expires_at: "Gesperrt bis"
-<%- end -%>
-<%- if options.authorization? -%>
-      role:
-        name: "Bezeichnung"
-      assignment:
-        <%= name %>: "Benutzer"
-        role: "Rolle"
-      ability:
-        resource: "Tabelle"
-        create_new: "Neu Anlegen"
-        read_own: "Lesen Eigene"
-        read_any: "Lesen Alle"
-        update_own: "Edit Eigene"
-        update_any: "Edit Alle"
-        delete_own: "Löschen Eigene"
-        delete_any: "Löschen Alle"
-        user1_own: "Zusatz1 Eigene"
-        user1_any: "Zusatz1 Alle"
-        user1_name: "Zusatz1 Name"
-        user2_own: "Zusatz2 Eigene"
-        user2_any: "Zusatz2 Alle"
-        user2_name: "Zusatz2 Name"
-        user3_own: "Zusatz3 Eigene"
-        user3_any: "Zusatz3 Alle"
-        user3_name: "Zusatz3 Name"
 <%- end -%>
 

@@ -14,6 +14,9 @@
       <th><%%= t('activerecord.attributes.<%= name %>.gravatar') %></th>
 <%- end -%>
       <th><%%= t('activerecord.attributes.<%= name %>.active') %></th>
+<%- added_fields.each do |field| -%>
+      <th><%%= t('activerecord.attributes.<%= name %>.<%= field.name %>') %></th>
+<%- end -%>
       <th class="index-actions"><%%= t('actions.title') %></th>
     </tr>
   </thead>
@@ -45,6 +48,11 @@
           (<%%= t('activerecord.attributes.<%= name %>.sysadm') %>)
         <%%- end -%>
         </td>
+<%- added_fields.each do |field| -%>
+        <td>
+          <%%= <%= name %>.<%= field.name %> %>
+        </td>
+<%- end -%>
         <td class="index-actions">
           <%%= link_to t('actions.show'), <%= name %>, class: 'btn btn-default btn-xs' %>
           <%%- if current_<%= name %>.sysadm or <%= name %> == current_<%= name %> -%>

@@ -11,6 +11,12 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
       t.integer  :theme, default: BootswatchRails::DEFAULT
       t.boolean  :active, default: true
       t.boolean  :sysadm, default: false
+<%- if added_fields.any? -%>
+
+  <%- added_fields.each do |f| -%>
+      t.<%= f.type %>  :<%= f.name %>
+  <%- end -%>
+<%- end -%>
 
       t.string   :crypted_password, null: false
       t.string   :salt, null: false
@@ -46,6 +52,15 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
 
     add_index :<%= table_name %>, :email, unique: true
     add_index :<%= table_name %>, :sysadm
+<%- if added_fields.any? -%>
+  <%- added_fields.each do |f| -%>
+    <%- if f.index == "uniq" -%>
+    add_index :<%= table_name %>, :<%= f.name %>, unique: true
+    <%- elsif f.index == "index" -%>
+    add_index :<%= table_name %>, :<%= f.name %>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
 <%- if options.user_activation? -%>
     add_index :<%= table_name %>, :activation_token
 <%- end -%>

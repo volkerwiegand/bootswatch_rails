@@ -10,12 +10,6 @@ class <%= class_name %> < ActiveRecord::Base
   scope :active, -> { where(active: true) }
   scope :sysadms, -> { where(sysadm: true) }
   
-<%- if options.authorization? -%>
-  has_many :assignments
-  has_many :roles, through: :assignments
-  has_many :abilities, through: :roles
-
-<%- end -%>
 <%- if options.picture? -%>
   mount_uploader :picture, PictureUploader
 

@@ -3,15 +3,17 @@ require 'rails/generators/active_record'
 module BootswatchRails
   module Generators
     class SorceryGenerator < ActiveRecord::Generators::Base
-      desc "Install authentication (with Sorcery) and (optional) authorization."
+      desc "Install authentication (with Sorcery) and setup users."
       argument :name, type: :string, default: "user",
                banner: "name of the user model"
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave)'
       class_option :gravatar, type: :boolean, default: false,
                desc: 'Add Gravatar image to user (uses email)'
-      class_option :authorization, type: :boolean, default: false,
-               desc: 'Add dynamic athorization on top of authentication'
+      class_option :authority, type: :boolean, default: false,
+               desc: 'Add athorization (requires authority gem)'
+      class_option :fields, type: :array, banner: "FIELD[:TYPE][:INDEX] ...",
+               desc: 'Setup additional attributes for user model'
       class_option :user_activation, type: :boolean, default: false,
                desc: 'User activation by email with optional success email'
       class_option :reset_password, type: :boolean, default: false,
@@ -34,18 +36,10 @@ module BootswatchRails
 
       def add_migrations
         migration_template "user_migration.rb", "db/migrate/create_#{table_name}.rb"
-        return unless options.authorization?
-        migration_template "role_migration.rb",       "db/migrate/create_roles.rb"
-        migration_template "assignment_migration.rb", "db/migrate/create_assignments.rb"
-        migration_template "ability_migration.rb",    "db/migrate/create_abilities.rb"
       end
 
       def add_models
         template "user_model.rb", "app/models/#{name}.rb"
-        return unless options.authorization?
-        template "role_model.rb",       "app/models/role.rb"
-        template "assignment_model.rb", "app/models/assignment.rb"
-        template "ability_model.rb",    "app/models/ability.rb"
       end
 
       def add_uploader
@@ -66,11 +60,6 @@ module BootswatchRails
 
       def add_controllers
         template "users_controller.rb", "app/controllers/#{table_name}_controller.rb"
-        return unless options.authorization?
-        # TODO
-        # template "roles_controller.rb",       "app/controllers/roles_controller.rb"
-        # template "assignments_controller.rb", "app/controllers/assignments_controller.rb"
-        # template "abilities_controller.rb",   "app/controllers/abilities_controller.rb"
       end
 
       def add_views
@@ -79,8 +68,6 @@ module BootswatchRails
         views.each do |view|
           template "#{view}.html.erb", "app/views/#{table_name}/#{view}.html.erb"
         end
-        return unless options.authorization?
-        # TODO
       end
 
       def add_routes
@@ -111,12 +98,6 @@ module BootswatchRails
           "  get '/logout' => '#{table_name}#log_out', as: :logout, format: false",
           ""
         ]
-        lines << [
-          "  resources :roles",
-          "  resources :assignments",
-          "  resources :abilities",
-          ""
-        ] if options.authorization?
         route lines.join("\n")
       end
 
@@ -151,6 +132,17 @@ module BootswatchRails
 
       protected
 
+      def added_fields
+        list = options.fields || []
+        array = []
+        list.each do |entry|
+          name, type, index = entry.split(':')
+          type, index = ["string", type] if %w(index uniq).include? type
+          array << [name, type, index]
+          array
+        end
+      end
+
       def submodules
         modules = []
         modules << ":user_activation"        if options.user_activation?
@@ -180,6 +172,9 @@ module BootswatchRails
         text = ":email, :name, :phone, :comment, :theme, " +
         ":active, :sysadm, :password, :password_confirmation"
         text += ", :picture, :picture_cache" if options.picture?
+        added_fields.each do |field|
+          text += ", #{field.name}"
+        end
         text
       end
     end

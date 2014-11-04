@@ -45,6 +45,12 @@
       <td><%%= t('activerecord.attributes.<%= name %>.sysadm') %></td>
       <td><%%= @<%= name %>.sysadm ? t('simple_form.yes') : t('simple_form.no') %></td>
     </tr>
+<%- added_fields.each do |field| -%>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.<%= field.name %>') %></td>
+      <td><%%= @<%= name %>.<%= field.name %> %></td>
+    </tr>
+<%- end -%>
 <%- if options.activity_logging? -%>
   <%%- if @<%= name %>.last_login_at.present? -%>
     <tr>

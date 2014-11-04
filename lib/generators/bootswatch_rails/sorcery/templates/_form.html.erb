@@ -28,6 +28,9 @@
   <%%- if current_<%= name %>.sysadm and @<%= name %> != current_<%= name %> -%>
     <%%= f.input :sysadm %>
   <%%- end -%>
+<%- added_fields.each do |field| -%>
+    <%%= f.input :<%= field.name %> %>
+<%- end -%>
 
   <%%= f.button :submit, class: 'btn btn-primary' %>
   <%%- if @<%= name %>.new_record? -%>
