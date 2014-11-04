@@ -173,7 +173,7 @@ module BootswatchRails
         ":active, :sysadm, :password, :password_confirmation"
         text += ", :picture, :picture_cache" if options.picture?
         added_fields.each do |field|
-          text += ", #{field.name}"
+          text += ", #{field[0]}"
         end
         text
       end
