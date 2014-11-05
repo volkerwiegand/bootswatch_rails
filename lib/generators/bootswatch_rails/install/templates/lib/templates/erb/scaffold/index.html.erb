@@ -1,5 +1,6 @@
 <%%- page_title t('activerecord.models.<%= singular_table_name %>.other') -%>
 <h2><%%= t('headers.index', name: t('activerecord.models.<%= singular_table_name %>.other')) %></h2>
+<%%- content_for(:help) { "<%= singular_table_name %>_index" } -%>
 
 <table class="table table-striped table-hover">
   <thead>
