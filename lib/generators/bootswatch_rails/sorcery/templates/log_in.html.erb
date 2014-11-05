@@ -1,5 +1,6 @@
 <%%- page_title t('sorcery.header') -%>
 <h2><%%= t('sorcery.header') %></h2>
+<%%- content_for(:help) { "<%= name %>_login" } -%>
 
 <%%= simple_form_for(@<%= name %>, url: {action: "access"}) do |f| %>
   <%%= f.error_notification %>
