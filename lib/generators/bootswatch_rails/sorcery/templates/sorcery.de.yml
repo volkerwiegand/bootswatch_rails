@@ -45,7 +45,7 @@ de:
         picture: "Bild"
 <%- end -%>
 <%- if options.gravatar? -%>
-        gravatar: "Gravatar"
+        gravatar: "Avatar"
 <%- end -%>
         theme: "Oberfläche"
         active: "Aktiv"
