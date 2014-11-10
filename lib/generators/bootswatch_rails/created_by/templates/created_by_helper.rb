@@ -23,6 +23,8 @@ module CreatedByHelper
         mail_to(email, name)
       when "long"
         "#{mail_to(email, name)} (#{l(time)})"
+      when "link"
+        "#{link_to(name, user)} (#{l(time.to_date)})"
       else          
         "#{mail_to(email, name)} (#{l(time.to_date)})"
     end
