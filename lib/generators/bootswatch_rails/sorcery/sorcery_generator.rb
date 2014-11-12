@@ -12,6 +12,8 @@ module BootswatchRails
                desc: 'Add Gravatar image to user (uses email)'
       class_option :authority, type: :boolean, default: false,
                desc: 'Add athorization (requires authority gem)'
+      class_option :root_route_login, type: :boolean, default: false,
+               desc: 'Sets the root route to the login page'
       class_option :add_attr, type: :array, banner: "FIELD[:TYPE][:INDEX] ...",
                desc: 'Setup additional attributes for user model'
       class_option :user_activation, type: :boolean, default: false,
@@ -93,7 +95,12 @@ module BootswatchRails
           "    end"
         ] if options.reset_password?
         lines << [
-          "  end",
+          "  end"
+        ]
+        lines << [
+          "  root '#{table_name}#log_in'"
+        ] if options.root_route_login?
+        lines << [
           "  get '/login'  => '#{table_name}#log_in',  as: :login,  format: false",
           "  get '/logout' => '#{table_name}#log_out', as: :logout, format: false",
           ""
