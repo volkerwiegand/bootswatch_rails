@@ -5,6 +5,9 @@ class <%= class_name %> < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, unless: Proc.new { |a| a.password.blank? }
   validates :password, confirmation: true
   validates :password_confirmation, presence: true, on: :create
+<%- if options.authority? -%>
+  include Authority::UserAbilities
+<%- end -%>
 
   default_scope { order(:name) }
   scope :active, -> { where(active: true) }
