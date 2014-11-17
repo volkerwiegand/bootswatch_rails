@@ -6746,7 +6746,7 @@ select.form-control:focus {
 .progress-bar:last-child {
   border-radius: 0 3px 3px 0;
 }
-.progress-bar:last-child.progress-bar:before {
+.progress-bar:last-child:before {
   display: block;
   content: 'div::before';
   position: absolute;
