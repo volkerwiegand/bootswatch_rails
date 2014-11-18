@@ -20,6 +20,7 @@ install: build
 	sudo rm -rf pkg
 
 build:
+	test -d datatables && git add datatables || true
 	test -d cleditor && git add cleditor || true
 	git add lib
 	git add vendor

@@ -78,7 +78,7 @@ fi
 _src="datatables/dataTables.bootstrap.js"
 _dst="$_assets/javascripts/dataTables.bootstrap.js"
 if ! cmp -s $_src $_dst ; then
-	echo "copy: jquery.dataTables.js"
+	echo "copy: dataTables.bootstrap.js"
 	cp $_src $_dst
 fi
 

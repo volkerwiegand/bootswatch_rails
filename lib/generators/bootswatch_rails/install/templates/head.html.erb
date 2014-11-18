@@ -26,6 +26,9 @@
   <%%= javascript_include_tag 'application'<%= turbolinks %> %>
 <%- if options.cdn != "none" -%>
   <%%= bootstrap_include_tag<%= turbolinks %> %>
+  <%- if options.dt? -%>
+  <%%= dataTables_bootstrap_tag<%= turbolinks %> %>
+  <%- end -%>
 <%- end -%>
 
   <!--[if lt IE 9]>
