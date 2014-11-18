@@ -74,7 +74,7 @@ else
 	echo "copy: jquery.dataTables.css"
 	mv /tmp/css.tmp $_dst
 fi
-# _themes_css="jquery.dataTables.css $_themes_css"
+_themes_css="jquery.dataTables.css $_themes_css"
 
 
 #################################################################################
