@@ -12,11 +12,25 @@ module BootswatchRails
       stylesheet_link_tag(bootswatch_url) + "\n  " + stylesheet_link_tag(fontawesome_url)
     end
 
+    def dataTables_link_tag(options = {})
+      return stylesheet_link_tag('jquery.dataTables') if !options.delete(:force) and OFFLINE
+      dataTables_url = "//cdn.datatables.net/#{BootswatchRails::DATATABLES}/css/jquery.dataTables.css"
+      stylesheet_link_tag(dataTables_url)
+    end
+
     def bootstrap_include_tag(options = {})
-      return javascript_include_tag(:bootstrap, options) if !options.delete(:force) and OFFLINE
+      return javascript_include_tag(:bootstrap) if !options.delete(:force) and OFFLINE
       bootstrap_url = "//maxcdn.bootstrapcdn.com/bootstrap/#{BootswatchRails::BOOTSTRAP}/js/bootstrap.min.js"
       [ javascript_include_tag(bootstrap_url, options),
-        javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag(:bootstrap, options).gsub('<','%3C')}'))")
+        javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag(:bootstrap).gsub('<','%3C')}'))")
+      ].join("\n").html_safe
+    end
+
+    def dataTables_include_tag(options = {})
+      return javascript_include_tag('jquery.dataTables') if !options.delete(:force) and OFFLINE
+      dataTables_url = "//cdn.datatables.net/#{BootswatchRails::DATATABLES}/js/jquery.dataTables.js"
+      [ javascript_include_tag(dataTables_url, options),
+        javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag('jquery.dataTables').gsub('<','%3C')}'))")
       ].join("\n").html_safe
     end
   end

@@ -6,6 +6,8 @@ module BootswatchRails
                desc: 'Activate turbolinks (off by default)'
       class_option :ui, type: :boolean, default: false,
                desc: 'Include jQuery-ui (requires jquery-ui gem)'
+      class_option :dt, type: :boolean, default: false,
+               desc: 'Include the jQuery DataTables plugin'
       class_option :cdn, type: :string, default: 'none',
                banner: 'none, google, microsoft, jquery or yandex',
                desc: 'Use CDN (requires jquery[-ui]-rails-cdn gems)'
@@ -43,6 +45,7 @@ module BootswatchRails
         initializer "bootswatch_assets.rb" do
           assets  = "jquery.js"
           assets += " jquery-ui.js" if options.ui?
+          assets += " jquery.dataTables.js" if options.dt?
           assets += " bootstrap.js"
           "Rails.application.config.assets.precompile += %w( #{assets} )"
         end

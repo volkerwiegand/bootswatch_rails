@@ -7,7 +7,10 @@
 
   <%%= stylesheet_link_tag 'application', media: 'all'<%= turbolinks %> %>
 <%- if options.cdn != "none" -%>
-  <%%= bootswatch_link_tag current_theme %>
+  <%- if options.dt? -%>
+  <%%= dataTables_link_tag<%= turbolinks %> %>
+  <%- end -%>
+  <%%= bootswatch_link_tag current_theme<%= turbolinks %> %> %>
 <%- else -%>
   <%%= stylesheet_link_tag current_theme<%= turbolinks %> %>
 <%- end -%>
@@ -15,6 +18,9 @@
   <%%= jquery_include_tag :<%= options.cdn %><%= turbolinks %> %>
   <%- if options.ui? -%>
   <%%= jquery_ui_include_tag :<%= options.cdn %><%= turbolinks %> %>
+  <%- end -%>
+  <%- if options.dt? -%>
+  <%%= dataTables_include_tag<%= turbolinks %> %>
   <%- end -%>
 <%- end -%>
   <%%= javascript_include_tag 'application'<%= turbolinks %> %>

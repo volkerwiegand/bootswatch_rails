@@ -1,3 +1,12 @@
 [submodule "bootswatch"]
 	path = bootswatch
 	url = https://github.com/thomaspark/bootswatch.git
+[submodule "DataTables"]
+	path = DataTables
+	url = https://github.com/DataTables/DataTables.git
+[submodule "Plugins"]
+	path = Plugins
+	url = https://github.com/DataTables/Plugins.git
+[submodule "Responsive"]
+	path = Responsive
+	url = https://github.com/DataTables/Responsive.git
