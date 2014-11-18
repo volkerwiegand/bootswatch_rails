@@ -57,14 +57,23 @@ done
 ###### Setup DataTables
 #################################################################################
 
-_src="DataTables/media/js/jquery.dataTables.js"
+DT_VER="1.10.4"
+
+if [ "$1" != "local" ] ; then
+	wget -N -P datatables "http://datatables.net/releases/DataTables-$DT_VER.zip"
+fi
+
+rm -rf /tmp/DataTables-*
+unzip -q -d /tmp datatables/DataTables-$DT_VER.zip
+
+_src="/tmp/DataTables-$DT_VER/media/js/jquery.dataTables.js"
 _dst="$_assets/javascripts/jquery.dataTables.js"
 if ! cmp -s $_src $_dst ; then
 	echo "copy: jquery.dataTables.js"
 	cp $_src $_dst
 fi
 
-_src="DataTables/media/css/jquery.dataTables.css"
+_src="/tmp/DataTables-$DT_VER/media/css/jquery.dataTables.css"
 _dst="$_assets/stylesheets/jquery.dataTables.css"
 rm -f /tmp/css.tmp
 sed -e 's#\.\./images/#/assets/#g' $_src >/tmp/css.tmp
@@ -75,6 +84,23 @@ else
 	mv /tmp/css.tmp $_dst
 fi
 _themes_css="jquery.dataTables.css $_themes_css"
+
+
+#################################################################################
+###### Copy image files
+#################################################################################
+
+for _file in /tmp/DataTables-$DT_VER/media/images/*.png ; do
+	_file=${_file##*/}
+	_src="/tmp/DataTables-$DT_VER/media/images/$_file"
+	_dst="$_assets/images/$_file"
+	if ! cmp -s $_src $_dst ; then
+		echo "copy: $_file"
+		cp $_src $_dst
+	fi
+done
+
+rm -rf /tmp/DataTables-$DT_VER
 
 
 #################################################################################
@@ -119,21 +145,6 @@ for _file in bootswatch/fonts/*.* ; do
 	_file=${_file##*/}
 	_src="bootswatch/fonts/$_file"
 	_dst="$_assets/fonts/$_file"
-	if ! cmp -s $_src $_dst ; then
-		echo "copy: $_file"
-		cp $_src $_dst
-	fi
-done
-
-
-#################################################################################
-###### Copy image files
-#################################################################################
-
-for _file in DataTables/media/images/*.png ; do
-	_file=${_file##*/}
-	_src="DataTables/media/images/$_file"
-	_dst="$_assets/images/$_file"
 	if ! cmp -s $_src $_dst ; then
 		echo "copy: $_file"
 		cp $_src $_dst

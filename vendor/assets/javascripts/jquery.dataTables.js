@@ -1,11 +1,11 @@
-/*! DataTables 1.10.5-dev
+/*! DataTables 1.10.4
  * ©2008-2014 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.10.5-dev
+ * @version     1.10.4
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
@@ -35,7 +35,7 @@
 	}
     else if ( typeof exports === 'object' ) {
         // Node/CommonJS
-        module.exports = factory( require( 'jquery' ) );
+        factory( require( 'jquery' ) );
     }
 	else if ( jQuery && !jQuery.fn.dataTable ) {
 		// Define using browser globals otherwise
@@ -1732,10 +1732,6 @@
 				$(tr)
 					.removeClass( row.__rowc.join(' ') )
 					.addClass( data.DT_RowClass );
-			}
-	
-			if ( data.DT_RowAttr ) {
-				$(tr).attr( data.DT_RowAttr );
 			}
 	
 			if ( data.DT_RowData ) {
@@ -3701,7 +3697,7 @@
 	
 		// When the body is scrolled, then we also want to scroll the headers
 		if ( scrollX ) {
-			$(scrollBody).on( 'scroll.DT', function (e) {
+			$(scrollBody).scroll( function (e) {
 				var scrollLeft = this.scrollLeft;
 	
 				scrollHead.scrollLeft = scrollLeft;
@@ -4263,9 +4259,12 @@
 					fn.apply( that, args );
 				}, frequency );
 			}
-			else {
+			else if ( last ) {
 				last = now;
 				fn.apply( that, args );
+			}
+			else {
+				last = now;
 			}
 		};
 	}
@@ -9073,7 +9072,7 @@
 	 *  @type string
 	 *  @default Version number
 	 */
-	DataTable.version = "1.10.5-dev";
+	DataTable.version = "1.10.4";
 
 	/**
 	 * Private data store, containing all of the settings objects that are
