@@ -47,6 +47,7 @@ module BootswatchRails
           assets += " jquery-ui.js" if options.ui?
           assets += " jquery.dataTables.js" if options.dt?
           assets += " bootstrap.js"
+          assets += " dataTables.bootstrap.js" if options.dt?
           "Rails.application.config.assets.precompile += %w( #{assets} )"
         end
       end

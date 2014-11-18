@@ -61,6 +61,8 @@ DT_VER="1.10.4"
 
 if [ "$1" != "local" ] ; then
 	wget -N -P datatables "http://datatables.net/releases/DataTables-$DT_VER.zip"
+	wget -N -P datatables "http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"
+	wget -N -P datatables "http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.css"
 fi
 
 rm -rf /tmp/DataTables-*
@@ -73,7 +75,14 @@ if ! cmp -s $_src $_dst ; then
 	cp $_src $_dst
 fi
 
-_src="/tmp/DataTables-$DT_VER/media/css/jquery.dataTables.css"
+_src="datatables/dataTables.bootstrap.js"
+_dst="$_assets/javascripts/dataTables.bootstrap.js"
+if ! cmp -s $_src $_dst ; then
+	echo "copy: jquery.dataTables.js"
+	cp $_src $_dst
+fi
+
+_src="datatables/dataTables.bootstrap.css"
 _dst="$_assets/stylesheets/jquery.dataTables.css"
 rm -f /tmp/css.tmp
 sed -e 's#\.\./images/#/assets/#g' $_src >/tmp/css.tmp

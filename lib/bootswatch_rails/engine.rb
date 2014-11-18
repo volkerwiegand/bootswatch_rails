@@ -35,6 +35,15 @@ module BootswatchRails
     end
   end
 
+    def dataTables_bootstrap_tag(options = {})
+      return javascript_include_tag('dataTables.bootstrap') if !options.delete(:force) and OFFLINE
+      dataTables_url = "//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"
+      [ javascript_include_tag(dataTables_url, options),
+        javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag('dataTables.bootstrap').gsub('<','%3C')}'))")
+      ].join("\n").html_safe
+    end
+  end
+
   class Engine < Rails::Engine
     initializer "BootswatchRails" do |app|
       ActiveSupport.on_load(:action_view) do
