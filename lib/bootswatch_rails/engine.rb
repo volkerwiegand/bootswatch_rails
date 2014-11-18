@@ -33,7 +33,6 @@ module BootswatchRails
         javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag('jquery.dataTables').gsub('<','%3C')}'))")
       ].join("\n").html_safe
     end
-  end
 
     def dataTables_bootstrap_tag(options = {})
       return javascript_include_tag('dataTables.bootstrap') if !options.delete(:force) and OFFLINE
