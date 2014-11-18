@@ -1,6 +1,6 @@
 class <%= class_name %> < ActiveRecord::Base
   authenticates_with_sorcery!
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 6 }, unless: Proc.new { |a| a.password.blank? }
   validates :password, confirmation: true
@@ -10,7 +10,7 @@ class <%= class_name %> < ActiveRecord::Base
 <%- end -%>
 
   default_scope { order(:name) }
-  scope :active, -> { where(active: true) }
+  scope :active,  -> { where(active: true) }
   scope :sysadms, -> { where(sysadm: true) }
   
 <%- if options.picture? -%>
