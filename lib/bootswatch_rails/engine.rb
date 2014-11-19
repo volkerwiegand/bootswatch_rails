@@ -18,6 +18,12 @@ module BootswatchRails
       stylesheet_link_tag(dataTables_url)
     end
 
+    def dataTables_responsive_link_tag(options = {})
+      return stylesheet_link_tag('dataTables.responsive') if !options.delete(:force) and OFFLINE
+      responsive_url = "//cdn.datatables.net/responsive/#{BootswatchRails::RESPONSIVE}/css/dataTables.responsive.css"
+      stylesheet_link_tag(responsive_url)
+    end
+
     def bootstrap_include_tag(options = {})
       return javascript_include_tag(:bootstrap) if !options.delete(:force) and OFFLINE
       bootstrap_url = "//maxcdn.bootstrapcdn.com/bootstrap/#{BootswatchRails::BOOTSTRAP}/js/bootstrap.min.js"
@@ -34,11 +40,11 @@ module BootswatchRails
       ].join("\n").html_safe
     end
 
-    def dataTables_bootstrap_tag(options = {})
-      return javascript_include_tag('dataTables.bootstrap') if !options.delete(:force) and OFFLINE
-      dataTables_url = "//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"
-      [ javascript_include_tag(dataTables_url, options),
-        javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag('dataTables.bootstrap').gsub('<','%3C')}'))")
+    def dataTables_responsive_include_tag(options = {})
+      return javascript_include_tag('dataTables.responsive') if !options.delete(:force) and OFFLINE
+      responsive_url = "//cdn.datatables.net/responsive/#{BootswatchRails::RESPONSIVE}/js/dataTables.responsive.js"
+      [ javascript_include_tag(responsive_url, options),
+        javascript_tag("window.jQuery || document.write(unescape('#{javascript_include_tag('dataTables.responsive').gsub('<','%3C')}'))")
       ].join("\n").html_safe
     end
   end
@@ -48,7 +54,7 @@ module BootswatchRails
       ActiveSupport.on_load(:action_view) do
         include BootswatchRails::ActionViewExtensions
       end
-      app.config.assets.precompile += %w(jquery.dataTables.css cerulean.css cosmo.css custom.css cyborg.css darkly.css flatly.css journal.css lumen.css paper.css readable.css sandstone.css simplex.css slate.css spacelab.css superhero.css united.css yeti.css)
+      app.config.assets.precompile += %w(jquery.dataTables.css dataTables.responsive.css cerulean.css cosmo.css custom.css cyborg.css darkly.css flatly.css journal.css lumen.css paper.css readable.css sandstone.css simplex.css slate.css spacelab.css superhero.css united.css yeti.css)
       app.config.assets.paths << File.expand_path('../../../vendor/assets/fonts', __FILE__)
     end
   end

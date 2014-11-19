@@ -58,11 +58,10 @@ done
 #################################################################################
 
 DT_VER="1.10.4"
+DT_RESP="1.0.2"
 
 if [ "$1" != "local" ] ; then
 	wget -N -P datatables "http://datatables.net/releases/DataTables-$DT_VER.zip"
-	wget -N -P datatables "http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"
-	wget -N -P datatables "http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.css"
 fi
 
 rm -rf /tmp/DataTables-*
@@ -75,14 +74,14 @@ if ! cmp -s $_src $_dst ; then
 	cp $_src $_dst
 fi
 
-_src="datatables/dataTables.bootstrap.js"
-_dst="$_assets/javascripts/dataTables.bootstrap.js"
+_src="/tmp/DataTables-$DT_VER/extensions/Responsive/js/dataTables.responsive.js"
+_dst="$_assets/javascripts/dataTables.responsive.js"
 if ! cmp -s $_src $_dst ; then
-	echo "copy: dataTables.bootstrap.js"
+	echo "copy: dataTables.responsive.js"
 	cp $_src $_dst
 fi
 
-_src="datatables/dataTables.bootstrap.css"
+_src="/tmp/DataTables-$DT_VER/media/css/jquery.dataTables.css"
 _dst="$_assets/stylesheets/jquery.dataTables.css"
 rm -f /tmp/css.tmp
 sed -e 's#\.\./images/#/assets/#g' $_src >/tmp/css.tmp
@@ -92,7 +91,18 @@ else
 	echo "copy: jquery.dataTables.css"
 	mv /tmp/css.tmp $_dst
 fi
-_themes_css="jquery.dataTables.css $_themes_css"
+
+_src="/tmp/DataTables-$DT_VER/extensions/Responsive/css/dataTables.responsive.css"
+_dst="$_assets/stylesheets/dataTables.responsive.css"
+rm -f /tmp/css.tmp
+sed -e 's#\.\./images/#/assets/#g' $_src >/tmp/css.tmp
+if cmp -s /tmp/css.tmp $_dst ; then
+	rm -f /tmp/css.tmp
+else
+	echo "copy: dataTables.responsive.css"
+	mv /tmp/css.tmp $_dst
+fi
+_themes_css="jquery.dataTables.css dataTables.responsive.css $_themes_css"
 
 
 #################################################################################
@@ -137,6 +147,8 @@ _version="lib/bootswatch_rails/version.rb"
 if [ -s $_version ] ; then
 	rm -f /tmp/version.tmp
 	sed -e "/THEMES/s/=.*/= [$_themes_raw]/" $_version >/tmp/version.tmp
+	sed -i -e "/DATATABLES =/s/=.*/= \"$DT_VER\"/" /tmp/version.tmp
+	sed -i -e "/RESPONSIVE =/s/=.*/= \"$DT_RESP\"/" /tmp/version.tmp
 	if cmp -s /tmp/version.tmp $_version ; then
 		rm -f /tmp/version.tmp
 	else

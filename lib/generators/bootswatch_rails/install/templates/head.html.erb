@@ -9,6 +9,7 @@
 <%- if options.cdn != "none" -%>
   <%- if options.dt? -%>
   <%%= dataTables_link_tag<%= turbolinks %> %>
+  <%%= dataTables_responsive_link_tag<%= turbolinks %> %>
   <%- end -%>
   <%%= bootswatch_link_tag current_theme<%= turbolinks %> %> %>
 <%- else -%>
@@ -21,14 +22,12 @@
   <%- end -%>
   <%- if options.dt? -%>
   <%%= dataTables_include_tag<%= turbolinks %> %>
+  <%%= dataTables_responsive_include_tag<%= turbolinks %> %>
   <%- end -%>
 <%- end -%>
   <%%= javascript_include_tag 'application'<%= turbolinks %> %>
 <%- if options.cdn != "none" -%>
   <%%= bootstrap_include_tag<%= turbolinks %> %>
-  <%- if options.dt? -%>
-  <%%= dataTables_bootstrap_tag<%= turbolinks %> %>
-  <%- end -%>
 <%- end -%>
 
   <!--[if lt IE 9]>
