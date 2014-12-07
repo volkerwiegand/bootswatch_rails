@@ -1,6 +1,6 @@
 module BootswatchRails
   BOOTSTRAP = "3.3.1"
-  BOOTSWATCH = "3.3.1"
+  BOOTSWATCH = "3.3.0"
   FONT_AWESOME = "4.2.0"
   DATATABLES = "1.10.4"
   RESPONSIVE = "1.0.2"
