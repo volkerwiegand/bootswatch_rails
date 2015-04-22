@@ -57,8 +57,8 @@ done
 ###### Setup DataTables
 #################################################################################
 
-DT_VER="1.10.4"
-DT_RESP="1.0.2"
+DT_VER="1.10.6"
+DT_RESP="1.0.5"
 
 if [ "$1" != "local" ] ; then
 	wget -N -P datatables "http://datatables.net/releases/DataTables-$DT_VER.zip"
