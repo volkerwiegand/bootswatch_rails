@@ -10,14 +10,14 @@ rel: build
 	./generate.sh
 	vim lib/bootswatch_rails/version.rb
 	git commit -a
-	sudo gem uninstall bootswatch_rails --all
+	gem uninstall bootswatch_rails --all
 	rake release
 
 install: build
 	git commit -a
-	sudo gem uninstall bootswatch_rails --all
-	sudo rake install
-	sudo rm -rf pkg
+	gem uninstall bootswatch_rails --all
+	rake install
+	rm -rf pkg
 
 build:
 	test -d datatables && git add datatables || true
