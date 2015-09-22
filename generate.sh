@@ -11,7 +11,15 @@
 set -e                  
 
 if [ "$1" != "local" ] ; then
-	git submodule foreach git pull
+	if [ -d ../bootswatch ] ; then
+		pushd ../bootswatch
+		git pull
+		popd
+	else
+		pushd ..
+		git clone https://github.com/thomaspark/bootswatch.git
+		popd
+	fi
 fi
 
 _assets="vendor/assets"
@@ -27,17 +35,17 @@ done
 
 _themes_css=""
 _themes_raw=""
-for _file in $(ls -1 bootswatch/*/bootstrap.css) ; do
-	_file=${_file#bootswatch/}
+for _file in $(ls -1 ../bootswatch/*/bootstrap.css) ; do
+	_file=${_file#../bootswatch/}
 	_theme=${_file%/bootstrap.css}
-	_src="bootswatch/$_file"
+	_src="../bootswatch/$_file"
 	_dst="$_assets/stylesheets/$_theme.css"
 	rm -f /tmp/css.tmp
 	sed -e 's#\.\./fonts/#/assets/#g' $_src >/tmp/css.tmp
 	if cmp -s /tmp/css.tmp $_dst ; then
 		rm -f /tmp/css.tmp
 	else
-		echo "copy: $_theme.css"
+		echo "copy1: $_theme.css"
 		mv /tmp/css.tmp $_dst
 	fi
 	if [ -z "$_themes_css" ] ; then
@@ -57,8 +65,8 @@ done
 ###### Setup DataTables
 #################################################################################
 
-DT_VER="1.10.6"
-DT_RESP="1.0.5"
+DT_VER="1.10.9"
+DT_RESP="1.0.7"
 
 if [ "$1" != "local" ] ; then
 	wget -N -P datatables "http://datatables.net/releases/DataTables-$DT_VER.zip"
@@ -70,14 +78,14 @@ unzip -q -d /tmp datatables/DataTables-$DT_VER.zip
 _src="/tmp/DataTables-$DT_VER/media/js/jquery.dataTables.js"
 _dst="$_assets/javascripts/jquery.dataTables.js"
 if ! cmp -s $_src $_dst ; then
-	echo "copy: jquery.dataTables.js"
+	echo "copy2: jquery.dataTables.js"
 	cp $_src $_dst
 fi
 
 _src="/tmp/DataTables-$DT_VER/extensions/Responsive/js/dataTables.responsive.js"
 _dst="$_assets/javascripts/dataTables.responsive.js"
 if ! cmp -s $_src $_dst ; then
-	echo "copy: dataTables.responsive.js"
+	echo "copy3: dataTables.responsive.js"
 	cp $_src $_dst
 fi
 
@@ -88,21 +96,21 @@ sed -e 's#\.\./images/#/assets/#g' $_src >/tmp/css.tmp
 if cmp -s /tmp/css.tmp $_dst ; then
 	rm -f /tmp/css.tmp
 else
-	echo "copy: jquery.dataTables.css"
+	echo "copy4: jquery.dataTables.css"
 	mv /tmp/css.tmp $_dst
 fi
 
-_src="/tmp/DataTables-$DT_VER/extensions/Responsive/css/dataTables.responsive.css"
-_dst="$_assets/stylesheets/dataTables.responsive.css"
+_src="/tmp/DataTables-$DT_VER/extensions/Responsive/css/responsive.dataTables.css"
+_dst="$_assets/stylesheets/responsive.dataTables.css"
 rm -f /tmp/css.tmp
 sed -e 's#\.\./images/#/assets/#g' $_src >/tmp/css.tmp
 if cmp -s /tmp/css.tmp $_dst ; then
 	rm -f /tmp/css.tmp
 else
-	echo "copy: dataTables.responsive.css"
+	echo "copy5: responsive.dataTables.css"
 	mv /tmp/css.tmp $_dst
 fi
-_themes_css="jquery.dataTables.css dataTables.responsive.css $_themes_css"
+_themes_css="jquery.dataTables.css responsive.dataTables.css $_themes_css"
 
 
 #################################################################################
@@ -114,7 +122,7 @@ for _file in /tmp/DataTables-$DT_VER/media/images/*.png ; do
 	_src="/tmp/DataTables-$DT_VER/media/images/$_file"
 	_dst="$_assets/images/$_file"
 	if ! cmp -s $_src $_dst ; then
-		echo "copy: $_file"
+		echo "copy6: $_file"
 		cp $_src $_dst
 	fi
 done
@@ -133,7 +141,7 @@ if [ -s $_engine ] ; then
 	if cmp -s /tmp/engine.tmp $_engine ; then
 		rm -f /tmp/engine.tmp
 	else
-		echo "edit: $_engine"
+		echo "edit1: $_engine"
 		mv /tmp/engine.tmp $_engine
 	fi
 fi
@@ -152,7 +160,7 @@ if [ -s $_version ] ; then
 	if cmp -s /tmp/version.tmp $_version ; then
 		rm -f /tmp/version.tmp
 	else
-		echo "edit: $_version"
+		echo "edit2: $_version"
 		mv /tmp/version.tmp $_version
 	fi
 fi
@@ -162,12 +170,12 @@ fi
 ###### Copy font files
 #################################################################################
 
-for _file in bootswatch/fonts/*.* ; do
+for _file in ../bootswatch/fonts/*.* ; do
 	_file=${_file##*/}
-	_src="bootswatch/fonts/$_file"
+	_src="../bootswatch/fonts/$_file"
 	_dst="$_assets/fonts/$_file"
 	if ! cmp -s $_src $_dst ; then
-		echo "copy: $_file"
+		echo "copy7: $_file"
 		cp $_src $_dst
 	fi
 done
@@ -184,7 +192,7 @@ if [ -s cleditor/jquery.cleditor.js ] ; then
 	if cmp -s /tmp/cleditor.tmp $_dst ; then
 		rm -f /tmp/cleditor.tmp
 	else
-		echo "edit: $_dst"
+		echo "edit3: $_dst"
 		mv /tmp/cleditor.tmp $_dst
 	fi
 
@@ -195,7 +203,7 @@ if [ -s cleditor/jquery.cleditor.js ] ; then
 	if cmp -s /tmp/cleditor.tmp $_dst ; then
 		rm -f /tmp/cleditor.tmp
 	else
-		echo "edit: $_dst"
+		echo "edit4: $_dst"
 		mv /tmp/cleditor.tmp $_dst
 	fi
 
@@ -203,7 +211,7 @@ if [ -s cleditor/jquery.cleditor.js ] ; then
 	for _file in toolbar.gif buttons.gif ; do
 		_src="cleditor/images/$_file"
 		if ! cmp -s $_src $_dir/$_file ; then
-			echo "copy: $_src"
+			echo "copy8: $_src"
 			cp $_src $_dir/$_file
 		fi
 	done
