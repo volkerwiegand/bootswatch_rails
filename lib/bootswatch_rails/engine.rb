@@ -19,8 +19,8 @@ module BootswatchRails
     end
 
     def dataTables_responsive_link_tag(options = {})
-      return stylesheet_link_tag('dataTables.responsive') if !options.delete(:force) and OFFLINE
-      responsive_url = "//cdn.datatables.net/responsive/#{BootswatchRails::RESPONSIVE}/css/dataTables.responsive.css"
+      return stylesheet_link_tag('responsive.dataTables') if !options.delete(:force) and OFFLINE
+      responsive_url = "//cdn.datatables.net/responsive/#{BootswatchRails::RESPONSIVE}/css/responsive.dataTables.css"
       stylesheet_link_tag(responsive_url)
     end
 
