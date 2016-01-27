@@ -10,6 +10,11 @@
 # Exit on error 
 set -e                  
 
+# DataTables version
+DT_VER="1.10.10"
+DT_RESP="2.0.0"
+
+
 if [ "$1" != "local" ] ; then
 	if [ -d ../bootswatch ] ; then
 		pushd ../bootswatch
@@ -64,9 +69,6 @@ done
 #################################################################################
 ###### Setup DataTables
 #################################################################################
-
-DT_VER="1.10.9"
-DT_RESP="1.0.7"
 
 if [ "$1" != "local" ] ; then
 	wget -N -P datatables "http://datatables.net/releases/DataTables-$DT_VER.zip"
