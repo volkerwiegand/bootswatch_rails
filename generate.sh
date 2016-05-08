@@ -11,8 +11,8 @@
 set -e                  
 
 # DataTables version
-DT_VER="1.10.10"
-DT_RESP="2.0.0"
+DT_VER="1.10.11"
+DT_RESP="2.0.2"
 
 
 if [ "$1" != "local" ] ; then
