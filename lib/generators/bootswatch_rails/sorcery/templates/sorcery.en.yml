@@ -1,18 +1,18 @@
-de:
+en:
   sorcery:
-    forbidden: "Diese Aktion ist nicht erlaubt."
-    log_in: "Login"
-    log_out: "Logout"
-    sign_up: "Benutzerkonto anlegen"
+    forbidden: "That is forbidden."
+    log_in: "Log in"
+    log_out: "Log out"
+    sign_up: "Sign up"
     header: "%{name} Login"
-    submit: "Login"
+    submit: "Log in"
 <%- if options.reset_password? -%>
     reset:
-      forgot: "Kennwort vergessen?"
-      header: "Kennwort anfordern"
-      send: "Anleitung senden"
-      back: "Zurück zum Login"
-      delivered: "Eine Anleitung wurde an Ihre E-Mail Adresse gesendet."
+      forgot: "Forgot password?"
+      header: "Request new password"
+      send: "Send instructions"
+      back: "Back to log in"
+      delivered: "Instructions were sent to your account."
       missing: "Keine E-Mail Adresse angegeben."
       choose: "Eingabe neues Kennwort"
       change: "Kennwort ändern"

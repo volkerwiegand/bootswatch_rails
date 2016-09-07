@@ -1,5 +1,5 @@
-<%%- page_title t('sorcery.header') -%>
-<h2><%%= t('sorcery.header') %></h2>
+<%%- page_title t('sorcery.log_in') -%>
+<h2><%%= t('sorcery.header', name: app_name) %></h2>
 <%%- content_for(:help) { "<%= name %>_login" } -%>
 
 <%%= simple_form_for(@<%= name %>, url: {action: "access"}) do |f| %>

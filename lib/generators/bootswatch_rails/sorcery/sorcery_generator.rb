@@ -6,6 +6,8 @@ module BootswatchRails
       desc "Install authentication (with Sorcery) and setup users."
       argument :name, type: :string, default: "user",
                banner: "name of the user model"
+      class_option :friendly, type: :boolean, default: false,
+               desc: 'Add slug to user (needs friendly_id gem)'
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave gem)'
       class_option :gravatar, type: :boolean, default: false,
@@ -113,7 +115,7 @@ module BootswatchRails
       end
 
       def add_locales
-        %w[de].each do |locale|
+        %w[en de].each do |locale|
           template "sorcery.#{locale}.yml", "config/locales/sorcery.#{locale}.yml"
         end
       end

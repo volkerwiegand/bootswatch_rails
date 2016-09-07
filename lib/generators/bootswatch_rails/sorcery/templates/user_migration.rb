@@ -5,6 +5,9 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
       t.string   :name
       t.string   :phone
       t.text     :comment
+<%- if options.friendly? -%>
+      t.string   :slug
+<%- end -%>
 <%- if options.picture? -%>
       t.string   :picture
 <%- end -%>
@@ -51,6 +54,9 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
     end
 
     add_index :<%= table_name %>, :email, unique: true
+<%- if options.friendly? -%>
+    add_index :<%= table_name %>, :slug, unique: true
+<%- end -%>
     add_index :<%= table_name %>, :sysadm
 <%- if added_fields.any? -%>
   <%- added_fields.each do |field| -%>
