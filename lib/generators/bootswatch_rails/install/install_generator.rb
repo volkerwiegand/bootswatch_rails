@@ -5,7 +5,7 @@ module BootswatchRails
       class_option :turbolinks, type: :boolean, default: false,
                desc: 'Activate turbolinks (off by default)'
       class_option :ui, type: :boolean, default: false,
-               desc: 'Include jQuery-ui (requires jquery-ui gem)'
+               desc: 'Include jQuery-ui (requires jquery-ui-rails gem)'
       class_option :dt, type: :boolean, default: false,
                desc: 'Include the jQuery DataTables plugin'
       class_option :cdn, type: :string, default: 'none',

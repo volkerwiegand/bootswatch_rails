@@ -12,6 +12,8 @@ module BootswatchRails
                banner: "create helper for view helpers"
       class_option :migration, type: :boolean, default: false,
                desc: 'Create a migration for added attributes'
+      class_option :friendly, type: :boolean, default: false,
+               desc: 'Add friendly_id finder for user'
       source_root File.expand_path('../templates', __FILE__)
       
       def add_helper

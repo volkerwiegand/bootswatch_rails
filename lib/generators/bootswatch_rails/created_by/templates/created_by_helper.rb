@@ -8,7 +8,7 @@ module CreatedByHelper
         id = model.created_by
         time = model.created_at
       end
-      user = <%= user.camelize %>.find(id)
+      user = <%= user.camelize %>.<%= options.friendly? ? 'friendly.' : '' %>find(id)
       name = user.name
       email = user.email
     rescue

@@ -7,7 +7,7 @@ module BootswatchRails
       argument :name, type: :string, default: "user",
                banner: "name of the user model"
       class_option :picture, type: :boolean, default: false,
-               desc: 'Add picture to user (needs carrierwave)'
+               desc: 'Add picture to user (needs carrierwave gem)'
       class_option :gravatar, type: :boolean, default: false,
                desc: 'Add Gravatar image to user (uses email)'
       class_option :authority, type: :boolean, default: false,

@@ -7,13 +7,18 @@ module BootswatchRails
       argument :name, type: :string,
                desc: "The resource to be updated"
       argument :actions, type: :array,
-               banner: "the actions to be publicly available"
+               banner: "the actions to be publicly available or 'all'"
 
       def update_controller
         file = "app/controllers/#{table_name}_controller.rb"
-        list = actions.map{|a| ":#{a}"}.join(', ')
+        if actions.include?('all')
+          text = ""
+        else
+          list = actions.map{|a| ":#{a}"}.join(', ')
+          text = ", only: [#{list}]"
+        end
         inject_into_file file, after: /before_action :set.*$/ do
-          "\n  skip_before_action :require_login, only: [#{list}]"
+          "\n  skip_before_action :require_login#{text}"
         end
       end
     end
