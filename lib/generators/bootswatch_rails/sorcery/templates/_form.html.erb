@@ -22,6 +22,9 @@
   <%%- end -%>
 <%- end -%>
   <%%= f.input :theme %>
+<%- if options.language? -%>
+  <%%= f.association :language %>
+<%- end -%>
   <%%= f.input :active %>
   <%%= f.input :password %>
   <%%= f.input :password_confirmation %>

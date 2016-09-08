@@ -7,6 +7,9 @@
 
   <%%= f.input :email, autofocus: true %>
   <%%= f.input :password %>
+<%- if options.language? -%>
+  <%%= f.association :language %>
+<%- end -%>
 <%- if options.remember_me? -%>
   <%%= f.input :remember_me %>
 <%- end -%>

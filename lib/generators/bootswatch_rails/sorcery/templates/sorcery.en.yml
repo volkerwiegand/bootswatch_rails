@@ -39,6 +39,9 @@ en:
       <%= name %>:
         email: "E-Mail"
         name: "Name"
+<%- if options.language? -%>
+        language: "Language"
+<%- end -%>
         phone: "Telefon"
         comment: "Bemerkung"
 <%- if options.picture? -%>

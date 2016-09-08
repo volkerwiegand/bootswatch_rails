@@ -8,6 +8,8 @@ module BootswatchRails
                banner: "name of the user model"
       class_option :friendly, type: :boolean, default: false,
                desc: 'Use real name in URLs (needs friendly_id gem)'
+      class_option :language, type: :boolean, default: false,
+               desc: 'Add language reference to user (foreign key)'
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave gem)'
       class_option :gravatar, type: :boolean, default: false,
@@ -180,6 +182,7 @@ module BootswatchRails
       def whitelist
         text = ":email, :name, :phone, :comment, :theme, " +
         ":active, :sysadm, :password, :password_confirmation"
+        text += ", :language_id" if options.language?
         text += ", :picture, :picture_cache" if options.picture?
         added_fields.each do |field|
           text += ", :#{field[0]}"

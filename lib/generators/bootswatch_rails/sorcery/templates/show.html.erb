@@ -34,6 +34,12 @@
       <td><%%= image_tag(gravatar_url(@<%= name %>, 200)) %></td>
     </tr>
 <%- end -%>
+<%- if options.language? -%>
+    <tr>
+      <td><%%= t('activerecord.attributes.<%= name %>.language') %></td>
+      <td><%%= @<%= name %>.language.name %></td>
+    </tr>
+<%- end -%>
     <tr>
       <td><%%= t('activerecord.attributes.<%= name %>.theme') %></td>
       <td><%%= @<%= name %>.theme %></td>

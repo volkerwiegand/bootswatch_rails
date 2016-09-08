@@ -3,6 +3,9 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
     create_table :<%= table_name %> do |t|
       t.string   :email, null: false
       t.string   :name
+<%- if options.language? -%>
+      t.references :language
+<%- end -%>
       t.string   :phone
       t.text     :comment
 <%- if options.friendly? -%>

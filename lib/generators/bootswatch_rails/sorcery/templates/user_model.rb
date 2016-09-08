@@ -4,6 +4,10 @@ class <%= class_name %> < ActiveRecord::Base
   friendly_id :email, use: [:slugged]
 
 <%- end -%>
+<%- if options.language? -%>
+  belongs_to :language
+
+<%- end -%>
   authenticates_with_sorcery!
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, on: :create
