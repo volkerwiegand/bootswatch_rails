@@ -22,5 +22,7 @@ class <%= class_name %> < ActiveRecord::Base
   mount_uploader :picture, PictureUploader
 
 <%- end -%>
-  enum theme: BootswatchRails::THEMES
+  extend Enumerize
+  enumerize :theme, in: BootswatchRails::THEMES
+  # enum theme: BootswatchRails::THEMES
 end

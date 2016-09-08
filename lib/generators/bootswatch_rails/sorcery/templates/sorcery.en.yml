@@ -47,7 +47,7 @@ en:
 <%- if options.gravatar? -%>
         gravatar: "Avatar"
 <%- end -%>
-        theme: "Oberfläche"
+        theme: "Skin"
         active: "Aktiv"
         sysadm: "SysAdmin"
         password: "Kennwort"

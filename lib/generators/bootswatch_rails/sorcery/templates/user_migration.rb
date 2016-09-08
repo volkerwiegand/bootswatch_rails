@@ -11,7 +11,7 @@ class <%= migration_name.camelize %> < ActiveRecord::Migration
 <%- if options.picture? -%>
       t.string   :picture
 <%- end -%>
-      t.integer  :theme, default: BootswatchRails::DEFAULT
+      t.string  :theme    #, default: BootswatchRails::DEFAULT
       t.boolean  :active, default: true
       t.boolean  :sysadm, default: false
 <%- if added_fields.any? -%>
