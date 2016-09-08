@@ -1,4 +1,9 @@
 class <%= class_name %> < ActiveRecord::Base
+<%- if options.friendly? -%>
+  include FriendlyId
+  friendly_id :email, use: [:slugged]
+
+<%- end -%>
   authenticates_with_sorcery!
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, on: :create
