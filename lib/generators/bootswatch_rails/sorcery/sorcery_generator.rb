@@ -6,7 +6,7 @@ module BootswatchRails
       desc "Install authentication (with Sorcery) and setup users."
       argument :name, type: :string, default: "user",
                banner: "name of the user model"
-      class_option :friendly, type: :boolean, default: false,
+      class_option :friendly_id, type: :boolean, default: false,
                desc: 'Add slug to user (needs friendly_id gem)'
       class_option :picture, type: :boolean, default: false,
                desc: 'Add picture to user (needs carrierwave gem)'
