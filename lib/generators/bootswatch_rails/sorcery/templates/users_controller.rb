@@ -152,7 +152,7 @@ class <%= controller_name.camelize %> < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_<%= name %>
-      @<%= name %> = <%= class_name %>.find(params[:id])
+      @<%= name %> = <%= class_name %>.<%= options.friendly? ? 'friendly.' : '' %>find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
