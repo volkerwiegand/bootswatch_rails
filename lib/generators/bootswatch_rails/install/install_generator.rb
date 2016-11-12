@@ -35,7 +35,7 @@ module BootswatchRails
       end
 
       def update_application_js
-        return if options.cdn?
+        return if options.cdn != "none"
         file = "app/assets/javascripts/application.js"
         inject_into_file file, after: /require jquery_ujs$/ do
           "\n//= require bootstrap"
@@ -60,7 +60,7 @@ module BootswatchRails
       #end
 
       def setup_assets_precompile
-        return unless options.cdn?
+        return if options.cdn == "none"
         initializer "bootswatch_assets.rb" do
           assets  = "jquery.js"
           assets += " jquery-ui.js" if options.ui?
