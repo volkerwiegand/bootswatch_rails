@@ -34,11 +34,30 @@ module BootswatchRails
         inject_into_file file, lines.join("\n"), before: /^end$/
       end
 
-      def copy_application_js
+      def update_application_js
+        return if options.cdn?
         file = "app/assets/javascripts/application.js"
-        remove_file file
-        template "application.js", file
+        inject_into_file file, after: /require jquery_ujs$/ do
+          "\n//= require bootstrap"
+        end
+        if options.ui?
+          inject_into_file file, after: /require jquery$/ do
+            "\n//= require jquery-ui"
+          end
+        end
+        if options.dt?
+          inject_into_file file, before: /^\/\/= require_tree.*$/ do
+            "//= require jquery.dataTables\n" +
+            "//= require dataTables.responsive\n"
+          end
+        end
       end
+
+      #def copy_application_js
+      #  file = "app/assets/javascripts/application.js"
+      #  remove_file file
+      #  template "application.js", file
+      #end
 
       def setup_assets_precompile
         return unless options.cdn?
@@ -69,3 +88,5 @@ module BootswatchRails
     end
   end
 end
+
+# vim: set expandtab softtabstop=2 shiftwidth=2 autoindent :
