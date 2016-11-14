@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+  <%%= render 'layouts/head' %>
+
+  <body>
+    <%%= render 'layouts/topnav' %>
+    <%%= render 'layouts/theme' %>
+
+    <div class="container" id="main-content">
+      <div class="row">
+        <div class="col-lg-12">
+          <%%= render 'layouts/flash' %>
+          <%%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <%%= render 'layouts/footer' %>
+  </body>
+</html>
+
+<%%-# vim: set expandtab softtabstop=2 shiftwidth=2 autoindent : -%>

@@ -1,0 +1,22 @@
+<%%- if <%= auth_check %> -%>
+  <div id='modalTheme' class='modal fade' role='dialog'>
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <button type='button' class='close' data-dismiss='modal'>&times;</button>
+          <h4 class='modal-title'><%%= t('activerecord.attributes.user.theme') %></h4>
+        </div>
+        <div class='modal-body theme-list'>
+          <%%- BootswatchRails::THEMES.each do |theme| -%>
+            <%%= link_to theme.to_s, user_path(current_user, theme: theme), class: 'theme-link' %>
+          <%%- end -%>
+        </div>
+        <div class='modal-footer'>
+          <button type='button' class='btn btn-default' data-dismiss='modal'><%%= t('misc.close') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<%%- end -%>
+
+<%%-# vim: set expandtab softtabstop=2 shiftwidth=2 autoindent : -%>
