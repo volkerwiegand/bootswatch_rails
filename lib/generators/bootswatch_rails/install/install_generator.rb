@@ -13,9 +13,9 @@ module BootswatchRails
                desc: 'Use CDN (requires jquery[-ui]-rails-cdn gems)'
       class_option :devise, type: :boolean, default: false,
                desc: 'Call user_signed_in? instead of logged_in?'
-      class_option :layout, type: :string, default: 'single',
-               banner: 'single, sidebar or even',
-               desc: 'Setup application layout (default single=12-col)'
+      class_option :layout, type: :string, default: 'custom',
+               banner: 'custom (just div.row), single (col-lg-12) or sidebar (content_for)',
+               desc: 'Setup default application layout'
       source_root File.expand_path("../templates", __FILE__)
 
       def update_application_controller
