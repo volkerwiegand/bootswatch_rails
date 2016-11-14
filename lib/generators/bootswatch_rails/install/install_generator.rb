@@ -22,7 +22,6 @@ module BootswatchRails
         file = "app/controllers/application_controller.rb"
         inject_into_file file, "\n\n  private", after: /protect_from_forgery.*$/
 
-        xline = "    ?@current_theme = current_user.theme if #{auth_check}"
         lines = [
           "",
           "  def default_theme",
@@ -31,8 +30,7 @@ module BootswatchRails
           "  helper_method :default_theme",
           "",
           "  def current_theme",
-          "    !@current_theme = current_user.theme if #{auth_check}",
-          xline,
+          "    @current_theme = current_user.theme if #{auth_check}",
           "    @current_theme ||= default_theme",
           "  end",
           "  helper_method :current_theme",
