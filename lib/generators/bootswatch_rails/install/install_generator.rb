@@ -9,26 +9,30 @@ module BootswatchRails
       class_option :dt, type: :boolean, default: false,
                desc: 'Include the jQuery DataTables plugin (and responsive)'
       class_option :cdn, type: :string, default: 'none',
-               banner: '"none", "google", "microsoft", "jquery" or "yandex"',
+               banner: 'none/google/microsoft/jquery/yandex',
                desc: 'Use CDN (requires jquery[-ui]-rails-cdn gems)'
       class_option :auth, type: :string, default: 'sorcery',
-               banner: '"none", devise resource (e.g. "user") or "sorcery"',
+               banner: 'none/devise resource (e.g. user)/sorcery',
                desc: 'Setup some authentication logic for sorcery or devise'
       class_option :layout, type: :string, default: 'custom',
-               banner: '"custom" (just div.row), "single" (col-lg-12) or "sidebar" (content_for)',
+               banner: 'custom(just div.row)/single(col-lg-12)/sidebar(content_for)',
                desc: 'Install default application layout'
       source_root File.expand_path("../templates", __FILE__)
 
       def update_application_controller
         file = "app/controllers/application_controller.rb"
         if options.auth == "none"
-          lines = []
+          lines = [
+            ""
+          ]
         elsif options.auth == "sorcery"
           lines = [
+            "",
             "  before_action :require_login"
           ]
         else
           lines = [
+            "",
             "  before_action :authenticate_#{options.auth}!"
           ]
         end
@@ -39,32 +43,31 @@ module BootswatchRails
           "  def default_theme",
           "    BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s",
           "  end",
-          "  helper_method :default_theme",
-          ""
+          "  helper_method :default_theme"
         ]
         if options.auth != "none"
           lines += [
+            "",
             "  def current_theme",
             "    @current_theme = current_#{auth_resource}.theme if #{auth_check}",
             "    @current_theme ||= default_theme",
             "  end",
-            "  helper_method :current_theme",
-            ""
+            "  helper_method :current_theme"
           ]
         end
         if options.auth == "sorcery"
           lines += [
+            "",
             "  def not_authenticated",
             "    redirect_to login_path, alert: t('sorcery.required')",
-            "  end",
-            ""
+            "  end"
           ]
         elsif options.auth != "none"
           lines += [
+            "",
             "  def after_sign_in_path_for(resource)",
             "    session['#{auth_resource}_return_to'] || root_path",
-            "  end",
-            ""
+            "  end"
           ]
         end
         inject_into_file file, lines.join("\n"), after: /protect_from_forgery.*$/
