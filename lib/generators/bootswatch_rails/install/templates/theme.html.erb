@@ -4,11 +4,11 @@
       <div class='modal-content'>
         <div class='modal-header'>
           <button type='button' class='close' data-dismiss='modal'>&times;</button>
-          <h4 class='modal-title'><%%= t('activerecord.attributes.user.theme') %></h4>
+          <h4 class='modal-title'><%%= t('activerecord.attributes.<%= auth_resource %>.theme') %></h4>
         </div>
         <div class='modal-body theme-list'>
           <%%- BootswatchRails::THEMES.each do |theme| -%>
-            <%%= link_to theme.to_s, user_path(current_user, theme: theme), class: 'theme-link' %>
+            <%%= link_to theme.to_s, <%= auth_resource %>_path(current_<%= auth_resource %>, theme: theme), class: 'theme-link' %>
           <%%- end -%>
         </div>
         <div class='modal-footer'>

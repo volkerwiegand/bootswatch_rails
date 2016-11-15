@@ -7,36 +7,67 @@ module BootswatchRails
       class_option :ui, type: :boolean, default: false,
                desc: 'Include jQuery-ui (requires jquery-ui-rails gem)'
       class_option :dt, type: :boolean, default: false,
-               desc: 'Include the jQuery DataTables plugin'
+               desc: 'Include the jQuery DataTables plugin (and responsive)'
       class_option :cdn, type: :string, default: 'none',
-               banner: 'none, google, microsoft, jquery or yandex',
+               banner: '"none", "google", "microsoft", "jquery" or "yandex"',
                desc: 'Use CDN (requires jquery[-ui]-rails-cdn gems)'
-      class_option :devise, type: :boolean, default: false,
-               desc: 'Call user_signed_in? instead of logged_in?'
+      class_option :auth, type: :string, default: 'sorcery',
+               banner: '"none", devise resource (e.g. "user") or "sorcery"',
+               desc: 'Setup some authentication logic for sorcery or devise'
       class_option :layout, type: :string, default: 'custom',
-               banner: 'custom (just div.row), single (col-lg-12) or sidebar (content_for)',
-               desc: 'Setup default application layout'
+               banner: '"custom" (just div.row), "single" (col-lg-12) or "sidebar" (content_for)',
+               desc: 'Install default application layout'
       source_root File.expand_path("../templates", __FILE__)
 
       def update_application_controller
         file = "app/controllers/application_controller.rb"
-        inject_into_file file, "\n\n  private", after: /protect_from_forgery.*$/
-
-        lines = [
+        if options.auth == "none"
+          lines = []
+        elsif options.auth == "sorcery"
+          lines = [
+            "  before_action :require_login"
+          ]
+        else
+          lines = [
+            "  before_action :authenticate_#{options.auth}!"
+          ]
+        end
+        lines += [
+          "",
+          "  private",
           "",
           "  def default_theme",
           "    BootswatchRails::THEMES[BootswatchRails::DEFAULT].to_s",
           "  end",
           "  helper_method :default_theme",
-          "",
-          "  def current_theme",
-          "    @current_theme = current_user.theme if #{auth_check}",
-          "    @current_theme ||= default_theme",
-          "  end",
-          "  helper_method :current_theme",
           ""
         ]
-        inject_into_file file, lines.join("\n"), before: /^end$/
+        if options.auth != "none"
+          lines += [
+            "  def current_theme",
+            "    @current_theme = current_#{auth_resource}.theme if #{auth_check}",
+            "    @current_theme ||= default_theme",
+            "  end",
+            "  helper_method :current_theme",
+            ""
+          ]
+        end
+        if options.auth == "sorcery"
+          lines += [
+            "  def not_authenticated",
+            "    redirect_to login_path, alert: t('sorcery.required')",
+            "  end",
+            ""
+          ]
+        elsif options.auth != "none"
+          lines += [
+            "  def after_sign_in_path_for(resource)",
+            "    session['#{auth_resource}_return_to'] || root_path",
+            "  end",
+            ""
+          ]
+        end
+        inject_into_file file, lines.join("\n"), after: /protect_from_forgery.*$/
       end
 
       def update_application_js
@@ -99,13 +130,19 @@ module BootswatchRails
         file = "app/views/layouts/application.html.erb"
         remove_file file
         template "#{options.layout}.html.erb", file
-        template "theme.html.erb", "app/views/layouts/_theme.html.erb"
+        if options.auth != "none"
+          template "theme.html.erb", "app/views/layouts/_theme.html.erb"
+        end
       end
 
       protected
 
+      def auth_resource
+        options.auth == "sorcery" ?  "user" : options.auth
+      end
+
       def auth_check
-        options.devise? ? "user_signed_in?" : "logged_in?"
+        options.auth == "sorcery" ? "logged_in?" : "#{options.auth}_signed_in?"
       end
 
       def turbolinks
