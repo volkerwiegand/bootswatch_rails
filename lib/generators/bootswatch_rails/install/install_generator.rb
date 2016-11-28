@@ -101,8 +101,8 @@ module BootswatchRails
           file = "app/assets/stylesheets/application.css"
           if options.dt?
             inject_into_file file, before: /^.*require_self$/ do
-              " *= jquery.dataTables\n" +
-              " *= responsive.dataTables\n"
+              " *= require jquery.dataTables\n" +
+              " *= require responsive.dataTables\n"
             end
           end
         end
