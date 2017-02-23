@@ -10,9 +10,20 @@
 # Exit on error 
 set -e                  
 
+# Bootstrap / Bootswatch version
+# http://getbootstrap.com/
+# https://bootswatch.com/
+BS_VER="3.3.7"
+
+#
+# FontAwesome version
+# http://fontawesome.io/
+FA_VER="4.7.0"
+
 # DataTables version
-DT_VER="1.10.12"
-DT_RESP="2.1.0"
+# https://datatables.net/download/index
+DT_VER="1.10.13"
+DT_RESP="2.1.1"
 
 
 if [ "$1" != "local" ] ; then
@@ -157,6 +168,9 @@ _version="lib/bootswatch_rails/version.rb"
 if [ -s $_version ] ; then
 	rm -f /tmp/version.tmp
 	sed -e "/THEMES/s/=.*/= [$_themes_raw]/" $_version >/tmp/version.tmp
+	sed -i -e "/BOOTSTRAP =/s/=.*/= \"$BS_VER\"/" /tmp/version.tmp
+	sed -i -e "/BOOTSWATCH =/s/=.*/= \"$BS_VER\"/" /tmp/version.tmp
+	sed -i -e "/FONT_AWESOME =/s/=.*/= \"$FA_VER\"/" /tmp/version.tmp
 	sed -i -e "/DATATABLES =/s/=.*/= \"$DT_VER\"/" /tmp/version.tmp
 	sed -i -e "/RESPONSIVE =/s/=.*/= \"$DT_RESP\"/" /tmp/version.tmp
 	if cmp -s /tmp/version.tmp $_version ; then
