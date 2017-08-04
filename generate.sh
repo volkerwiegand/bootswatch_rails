@@ -22,7 +22,7 @@ FA_VER="4.7.0"
 
 # DataTables version
 # https://datatables.net/download/index
-DT_VER="1.10.13"
+DT_VER="1.10.15"
 DT_RESP="2.1.1"
 
 
