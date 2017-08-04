@@ -4,7 +4,7 @@ module BootswatchRails
   FONT_AWESOME = "4.7.0"
   DATATABLES = "1.10.15"
   RESPONSIVE = "2.1.1"
-  VERSION = "3.3.7.7"
+  VERSION = "3.3.7.8"
 
   THEMES = [:cerulean, :cosmo, :custom, :cyborg, :darkly, :flatly, :journal, :lumen, :paper, :readable, :sandstone, :simplex, :slate, :solar, :spacelab, :superhero, :united, :yeti]
   DEFAULT = 0
